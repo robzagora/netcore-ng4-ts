@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-namespace ng2_ts_vs2017.Controllers
+namespace Dashboard.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+
     public class HomeController : Controller
     {
         public IActionResult Index()
