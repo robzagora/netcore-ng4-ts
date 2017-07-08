@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
@@ -6,8 +6,11 @@
         <title>@ViewData["Title"] - ng2_ts_vs2017</title>
         <base href="/" />
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+
+        <!-- Styles for this come from angular/material and are used by the directives of Angular2 typescript modules -->
+        <link rel="stylesheet" href="~/css/ng-theme.css" />
     </head>
-    <body>
+    <body class="mat-app-background">
         @RenderBody()
 
         @RenderSection("scripts", required: false)

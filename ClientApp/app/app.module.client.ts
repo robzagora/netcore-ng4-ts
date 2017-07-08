@@ -11,6 +11,7 @@ import { sharedConfig } from './app.module.shared';
         BrowserModule,
         FormsModule,
         HttpModule,
+        
         ...sharedConfig.imports
     ],
     providers: [

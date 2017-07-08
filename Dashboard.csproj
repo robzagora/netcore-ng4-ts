@@ -21,6 +21,9 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\css\ng-theme.css" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
