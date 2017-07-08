@@ -33,3 +33,11 @@ don't change environmentVariables array to custom values (experiment more with t
 because in my initial testing, the differnt key values didn't allow for updated content to be displayed on the browser
 
 == Important notes end
+
+== GIT Start
+
+If adding existing files to solution don't appear in changes,
+You need to open up the cmd in the same place where .csproj file is and run
+"git add -u"
+
+== GIT End
