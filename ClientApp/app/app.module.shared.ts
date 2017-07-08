@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { AppComponent } from './components/app/app.component'
-import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { NavComponent } from './core/nav/nav.component'
+import { AppComponent } from './components/app/app.component';
+import { NavComponent } from './core/nav/nav.component';
+
+import { NavService } from './core/nav/nav.service';
 
 import {
-    MdCoreModule,
+    MdCoreModule, 
     MdDialogModule, 
     MdChipsModule,
     MdCardModule,
     MdButtonModule,
     MdInputModule,
     MdCheckboxModule,
-    MdAutocompleteModule
+    MdAutocompleteModule,
+    MdProgressBarModule
 } from '@angular/material';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -40,6 +41,8 @@ export const sharedConfig: NgModule = {
         MdInputModule,
         MdCheckboxModule,
         MdAutocompleteModule,
+        MdProgressBarModule
         //BrowserAnimationsModule // causes app not to load when included
-    ]
+    ],
+    providers: [NavService]
 };
