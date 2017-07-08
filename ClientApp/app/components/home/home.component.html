@@ -1,1 +1,6 @@
-<h1>Hello, world!</h1>
+<h1>Latest News</h1>
+
+<div *ngFor="let item of news">
+    Name: {{ item.name }} (ID: {{item.value}})
+    <br />
+</div>

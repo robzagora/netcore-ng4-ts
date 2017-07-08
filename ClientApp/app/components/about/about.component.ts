@@ -1,7 +1,7 @@
 ﻿
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 import { Navigatable } from './../shared/navigatable';
-import { NavService, RoutingState } from '../../core/nav/nav.service';
+import { NavService, RoutingState } from './../nav/nav.service';
 
 @Component({
     selector: 'about',
@@ -11,18 +11,18 @@ export class AboutComponent extends Navigatable {
 
     private test: string;
 
-    constructor(navService: NavService) {
-
-        super(navService);
+    constructor(injector: Injector) {
+        super(injector.get(NavService));
 
         this.test = 'ABout Test';
     }
 
     ngAfterViewInit() {
+
         this.routingFinished();
     }
 
     ngOnDestroy() {
         this.routingOngoing();
     }
-}
+} 

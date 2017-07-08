@@ -1,7 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { AppRoutes, AppRoute } from './../app-routing.module';
+import { AppRoutes, AppRoute } from './../../modules/app-routing.module';
 
 export enum RoutingState {
     Ongoing,

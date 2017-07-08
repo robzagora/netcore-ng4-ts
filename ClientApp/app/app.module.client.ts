@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { sharedConfig } from './app.module.shared';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
     bootstrap: sharedConfig.bootstrap,
     declarations: sharedConfig.declarations,
@@ -11,7 +13,7 @@ import { sharedConfig } from './app.module.shared';
         BrowserModule,
         FormsModule,
         HttpModule,
-        
+        BrowserAnimationsModule,
         ...sharedConfig.imports
     ],
     providers: [

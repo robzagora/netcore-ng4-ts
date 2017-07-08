@@ -41,3 +41,39 @@ You need to open up the cmd in the same place where .csproj file is and run
 "git add -u"
 
 == GIT End
+
+== Dependency injection start
+
+shared services have to be register in the component that will need to use it
+
+there are several ways to go about this:
+
+1. Use explicit component provider registration
+e.g. HomeComponent decorator takes in the required dependency as part of the providers property
+
+2. Register service in the base app.component
+
+The difference between the two is that using the former approach, the dependency can be directly supplied via the constructor
+of its type. The dependency will only be availabe in the scope of the registered component.
+
+Using the latter approach means that we can use the Injector dependency to get our requried dependency type.
+So we do registration in only one place
+e.g. constructor(private injector: Injector) { this.service = injector.get(MyService); }
+
+Attempting to use the direct type injection in the latter approach will result in render error because the engine is unable to resolve the type 
+
+== Dependency injection end
+
+== MODULES START
+
+the app.module.client.ts is the module that will be sent to the clients browser
+so, imports such as HttpModule,BrowserAnimationsModule, etc need to be imported there
+
+the app.module.server.ts is for server side rendering
+so, there is no need for modules that interact in realtime or invoke external dependencies
+
+If the client module uses BrowserAnimationsModule,
+then the server module should import the NoopAnimationsModule (which stands for no-operation)
+
+
+== MODULES END
