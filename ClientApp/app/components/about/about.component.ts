@@ -1,0 +1,17 @@
+﻿
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'about',
+    templateUrl: './about.component.html'
+})
+
+export class AboutComponent {
+
+    private test: string;
+
+    constructor() {
+
+        this.test = 'ABout Test';
+    }
+}

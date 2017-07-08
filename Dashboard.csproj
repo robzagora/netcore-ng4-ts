@@ -24,6 +24,7 @@
     <Content Include="wwwroot\css\ng-theme.css" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ClientApp\app\components\shared\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">

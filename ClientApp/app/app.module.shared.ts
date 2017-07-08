@@ -3,11 +3,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component'
 import { HomeComponent } from './components/home/home.component';
-import { HeaderComponent } from './components/shared/header.component'
+import { AboutComponent } from './components/about/about.component';
+import { NavComponent } from './core/nav/nav.component'
 
 import {
     MdCoreModule,
-    MdDialogModule,
+    MdDialogModule, 
     MdChipsModule,
     MdCardModule,
     MdButtonModule,
@@ -18,28 +19,27 @@ import {
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Should be last in load order
+import { AppRoutingModule, routableComponents } from './core/app-routing.module';
+
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
     declarations: [
         AppComponent,
-        HomeComponent,
-        HeaderComponent
+        NavComponent,
+        routableComponents
     ],
     imports: [
-        RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
-            { path: '**', redirectTo: 'home' }
-        ]),
+        AppRoutingModule,
         // angular modules need to be after browser module
-        //MdCoreModule,
-       // MdDialogModule,
+        MdCoreModule,
+        MdDialogModule,
         MdChipsModule,
         MdCardModule,
         MdButtonModule,
         MdInputModule,
         MdCheckboxModule,
         MdAutocompleteModule,
-        // BrowserAnimationsModule
+        // BrowserAnimationsModule // causes app not to load when included
     ]
 };
