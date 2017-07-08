@@ -17,7 +17,7 @@ import {
     MdAutocompleteModule
 } from '@angular/material';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Should be last in load order
 import { AppRoutingModule, routableComponents } from './core/app-routing.module';
@@ -40,6 +40,6 @@ export const sharedConfig: NgModule = {
         MdInputModule,
         MdCheckboxModule,
         MdAutocompleteModule,
-        // BrowserAnimationsModule // causes app not to load when included
+        //BrowserAnimationsModule // causes app not to load when included
     ]
 };
