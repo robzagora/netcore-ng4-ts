@@ -1,0 +1,35 @@
+
+== Source
+
+https://channel9.msdn.com/Events/Visual-Studio/Visual-Studio-2017-Launch/WEB-103
+
+== Solution Setup Start
+
+run cmd
+
+check node.js version >= v7.5.0 with "node --version"
+
+run "dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
+
+navigate to desired location and create a directory for the project
+
+run "dotnet new -l"
+
+then "dotnet new angular"
+
+then "dotnet restore"
+
+then "npm install"
+
+Clean up should be done therafter on the solution to remove a lot of unnecessary code and files
+
+== Solution Setup End
+
+== Important notes start
+
+-- launchSettings.json
+
+don't change environmentVariables array to custom values (experiment more with this)
+because in my initial testing, the differnt key values didn't allow for updated content to be displayed on the browser
+
+== Important notes end

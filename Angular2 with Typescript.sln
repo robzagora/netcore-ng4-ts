@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dashboard", "Dashboard.csproj", "{197A2625-8B10-4D49-B1E3-BF90B5C3BC9D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B6F0DE5B-FB4E-4502-9180-EF6E4940935F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{07D26042-A306-45A3-AB47-D7ABB6F345A6}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\Users\zagor\Desktop\steps for vs 2017 and angular 2.txt = ..\..\Users\zagor\Desktop\steps for vs 2017 and angular 2.txt
+		Solution Items\steps for vs 2017 and angular 2.txt = Solution Items\steps for vs 2017 and angular 2.txt
 	EndProjectSection
 EndProject
 Global
