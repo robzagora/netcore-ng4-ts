@@ -1,39 +1,64 @@
 import { Component, Injector } from '@angular/core';
 
 import { Navigatable } from './../shared/navigatable';
-import { NavService, RoutingState } from './../nav/nav.service';
+import { NavService } from './../nav/nav.service';
+import { ProgressService } from './../../services/progress.service';
+//import { SnackbarService } from './../../services/snackbar.service';
 import { NewsService, News } from './../../services/news.service';
+
+import { } from './../shared/animations';
 
 @Component({
     selector: 'home',
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+    animations: []
 })
 export class HomeComponent extends Navigatable {
 
-    private newsServices: NewsService;
+    private newsService: NewsService;
+    //private snackbarService: SnackbarService;
 
     news: News[] = [];
 
     constructor(injector: Injector) {
-        super(injector.get(NavService));
+        super(injector.get(ProgressService));
 
-        this.newsServices = injector.get(NewsService);
+        this.newsService = injector.get(NewsService);
+        //this.snackbarService = injector.get(SnackbarService);
     }
 
-    ngAfterViewInit() {
-        this.newsServices
+    getNews() {
+
+        // we need to use the 'takeUntil' 
+        // because when we perform navigation in the middle of a service call
+        // the request will be cancelled by angular 
+
+        // not using it will result in data being transferred back
+        // even though the component has been destroyed
+        // making our sites inefficient
+
+        this.workOngoing();
+
+        this.newsService
             .getNews()
-            .subscribe(news =>
-            {
+            .takeUntil(this.componentDestroying)
+            .subscribe(news => {
                 this.news = news;
 
-                this.routingFinished();
+                this.workFinished();
+                //this.snackbarService.showSnackbar('news loaded');
             });
     }
 
+    ngAfterViewInit() {
+        this.getNews();
+    }
+
     ngOnDestroy() {
+        this.finaliseComponent();
+
         this.news = [];
 
-        this.routingOngoing();
+        this.workOngoing();
     }
 }

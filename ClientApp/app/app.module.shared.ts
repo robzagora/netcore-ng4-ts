@@ -13,7 +13,11 @@ import {
     MdInputModule,
     MdCheckboxModule,
     MdAutocompleteModule,
-    MdProgressBarModule
+    MdProgressBarModule,
+    MdIconModule,
+    MdTableModule,
+    MdMenuModule,
+    MdSnackBarModule
 } from '@angular/material';
 
 //Should be last in load order
@@ -36,6 +40,10 @@ export const sharedConfig: NgModule = {
         MdInputModule,
         MdCheckboxModule,
         MdAutocompleteModule,
-        MdProgressBarModule
+        MdProgressBarModule,
+        MdIconModule,
+        MdTableModule,
+        MdMenuModule,
+        MdSnackBarModule
     ]
 };

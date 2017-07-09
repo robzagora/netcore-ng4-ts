@@ -23,7 +23,7 @@ export const flyInOut = trigger('flyInOut', [
     ])
 ]);
 
-export const easeInOut = trigger('easeInOut', [
+export const easeInOutWithState = trigger('easeInOutWithState', [
     state('inactive', style({
         opacity: 0,
         display: 'none'
@@ -34,4 +34,19 @@ export const easeInOut = trigger('easeInOut', [
     })),
     transition('inactive => active', animate('0.2s ease-in')),
     transition('active => inactive', animate('0.2s ease-out'))
+]);
+
+export const easeInOutVoid = trigger('easeInOutVoid', [
+    transition('void => *', [
+        style({
+            opacity: 1,
+        }),
+        animate('0.2s ease-in')
+    ]),
+    transition('* => void', [
+        style({
+            opacity: 0,
+        }),
+        animate('0.2s ease-out')
+    ])
 ]);

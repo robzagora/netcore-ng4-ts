@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 
 import { NavService } from './../nav/nav.service';
 import { NewsService } from './../../services/news.service';
+import { ProgressService } from './../../services/progress.service'
 
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    providers: [NavService, NewsService]
+    providers: [NavService, NewsService, ProgressService]
 })
 export class AppComponent {
     // investigate whether navigation events are better 

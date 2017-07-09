@@ -1,4 +1,4 @@
-﻿import { Injectable, InjectionToken  } from '@angular/core';
+﻿import { Injectable, InjectionToken } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
@@ -39,7 +39,7 @@ export class NewsService {
         return this.http
             .get(request)
             .map((response: Response) => {
-                return <News[]>response.json()
+                return response.json() as News[];
             })
             .catch(this.handleError);
     }

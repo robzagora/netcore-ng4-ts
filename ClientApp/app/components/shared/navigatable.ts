@@ -1,18 +1,29 @@
-﻿import { NavService, RoutingState } from './../nav/nav.service';
+﻿import { ProgressService, ProgressState } from './../../services/progress.service';
+import { Subject } from "rxjs/Subject";
 
 export abstract class Navigatable {
 
-    protected navService: NavService;
+    // Very important to define a Subject in the base class for use of any components implementing this base class
+    // This is in the case that there are http services 
+    // which may require canellation should our component get destroyed
+    protected componentDestroying: Subject<boolean>; 
+    protected progressService: ProgressService;
  
-    constructor(navService: NavService) {
-        this.navService = navService;
+    constructor(navService: ProgressService) {
+        this.progressService = navService;
+        this.componentDestroying = new Subject();
     }
 
-    protected routingFinished() {
-        this.navService.notifyRoutingState(RoutingState.Finished);
+    protected workOngoing() {
+        this.progressService.setProgressState(ProgressState.Ongoing);
     }
 
-    protected routingOngoing() {
-        this.navService.notifyRoutingState(RoutingState.Ongoing);
+    protected workFinished() {
+        this.progressService.setProgressState(ProgressState.Finished);
+    }
+    
+    protected finaliseComponent() {
+        this.componentDestroying.next();
+        this.componentDestroying.complete();
     }
 }
