@@ -9,8 +9,8 @@ export abstract class Navigatable {
     protected componentDestroying: Subject<boolean>; 
     protected progressService: ProgressService;
  
-    constructor(navService: ProgressService) {
-        this.progressService = navService;
+    constructor(progressService: ProgressService) {
+        this.progressService = progressService;
         this.componentDestroying = new Subject();
     }
 

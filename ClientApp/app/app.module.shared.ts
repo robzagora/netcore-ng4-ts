@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AppComponent } from './components/app/app.component';
 import { NavComponent } from './components/nav/nav.component';
 
@@ -17,7 +16,8 @@ import {
     MdIconModule,
     MdTableModule,
     MdMenuModule,
-    MdSnackBarModule
+    MdSnackBarModule,
+    MdSliderModule
 } from '@angular/material';
 
 //Should be last in load order
@@ -44,6 +44,7 @@ export const sharedConfig: NgModule = {
         MdIconModule,
         MdTableModule,
         MdMenuModule,
-        MdSnackBarModule
+        MdSnackBarModule,
+        MdSliderModule
     ]
 };

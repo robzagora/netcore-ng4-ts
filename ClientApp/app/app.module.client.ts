@@ -10,10 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     bootstrap: sharedConfig.bootstrap,
     declarations: sharedConfig.declarations,
     imports: [
+        BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
         HttpModule,
-        BrowserAnimationsModule,
         ...sharedConfig.imports
     ],
     providers: [

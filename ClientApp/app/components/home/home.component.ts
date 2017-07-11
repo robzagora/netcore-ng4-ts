@@ -1,9 +1,9 @@
-import { Component, Injector } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Navigatable } from './../shared/navigatable';
 import { NavService } from './../nav/nav.service';
 import { ProgressService } from './../../services/progress.service';
-//import { SnackbarService } from './../../services/snackbar.service';
+import { SnackbarService } from './../../services/snackbar.service';
 import { NewsService, News } from './../../services/news.service';
 
 import { } from './../shared/animations';
@@ -15,16 +15,11 @@ import { } from './../shared/animations';
 })
 export class HomeComponent extends Navigatable {
 
-    private newsService: NewsService;
-    //private snackbarService: SnackbarService;
-
     news: News[] = [];
 
-    constructor(injector: Injector) {
-        super(injector.get(ProgressService));
+    constructor(progressService: ProgressService, private newsService: NewsService, private snackbarService: SnackbarService) {
+        super(progressService);
 
-        this.newsService = injector.get(NewsService);
-        //this.snackbarService = injector.get(SnackbarService);
     }
 
     getNews() {
@@ -46,7 +41,7 @@ export class HomeComponent extends Navigatable {
                 this.news = news;
 
                 this.workFinished();
-                //this.snackbarService.showSnackbar('news loaded');
+                this.snackbarService.showSnackbar('news loaded');
             });
     }
 
