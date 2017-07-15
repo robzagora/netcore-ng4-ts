@@ -1,83 +1,99 @@
 
 == Source
 
--- Example
-https://channel9.msdn.com/Events/Visual-Studio/Visual-Studio-2017-Launch/WEB-103
+	-- Example
+	https://channel9.msdn.com/Events/Visual-Studio/Visual-Studio-2017-Launch/WEB-103
 
--- Icons 
-https://material.angular.io/components
+	-- Icons 
+	https://material.angular.io/components
 
 == Solution Setup Start
 
-run cmd
+	run cmd
 
-check node.js version >= v7.5.0 with "node --version"
+	check node.js version >= v7.5.0 with "node --version"
 
-run "dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
+	run "dotnet new --install Microsoft.AspNetCore.SpaTemplates::*
 
-navigate to desired location and create a directory for the project
+	navigate to desired location and create a directory for the project
 
-run "dotnet new -l"
+	run "dotnet new -l"
 
-then "dotnet new angular"
+	then "dotnet new angular"
 
-then "dotnet restore"
+	then "dotnet restore"
 
-then "npm install"
+	then "npm install"
 
-Clean up should be done therafter on the solution to remove a lot of unnecessary code and files
+	Clean up should be done therafter on the solution to remove a lot of unnecessary code and files
 
 == Solution Setup End
 
 == Important notes start
 
--- launchSettings.json
+	-- launchSettings.json
 
-don't change environmentVariables array to custom values (experiment more with this)
-because in my initial testing, the differnt key values didn't allow for updated content to be displayed on the browser
+	don't change environmentVariables array to custom values (experiment more with this)
+	because in my initial testing, the differnt key values didn't allow for updated content to be displayed on the browser
+
+	-- webpack
+
+	When getting latest from source controler, there are files that are required but never get pushed to source controll
+	
+	Before running the solution, we need to run this command:
+
+	"webpack --config webpack.config.vendor.js"
+
+	This script can also be put into package.json under "scripts":
+
+	  "scripts": {
+		"build": "webpack --config webpack.config.vendor.js" 
+	  }
+
+	This is a manual process meaning that this needs to be compiled using "npm run build"
 
 == Important notes end
 
 == GIT Start
 
-If adding existing files to solution don't appear in changes,
-You need to open up the cmd in the same place where .csproj file is and run
-"git add -u"
+	If adding existing files to solution don't appear in changes,
+	You need to open up the cmd in the same place where .csproj file is and run
+	"git add -u"
 
 == GIT End
 
 == Dependency injection start
 
-shared services have to be register in the component that will need to use it
+	shared services have to be register in the component that will need to use it
 
-there are several ways to go about this:
+	there are several ways to go about this:
 
-1. Use explicit component provider registration
-e.g. HomeComponent decorator takes in the required dependency as part of the providers property
+	1. Use explicit component provider registration
+	e.g. HomeComponent decorator takes in the required dependency as part of the providers property
 
-2. Register service in the base app.component
+	2. Register service in the base app.component
 
-The difference between the two is that using the former approach, the dependency can be directly supplied via the constructor
-of its type. The dependency will only be availabe in the scope of the registered component.
+	The difference between the two is that using the former approach, the dependency can be directly supplied via the constructor
+	of its type. The dependency will only be availabe in the scope of the registered component.
 
-Using the latter approach means that we can use the Injector dependency to get our requried dependency type.
-So we do registration in only one place
-e.g. constructor(private injector: Injector) { this.service = injector.get(MyService); }
+	Using the latter approach means that we can use the Injector dependency to get our requried dependency type.
+	So we do registration in only one place
+	e.g. constructor(private injector: Injector) { this.service = injector.get(MyService); }
 
-Attempting to use the direct type injection in the latter approach will result in render error because the engine is unable to resolve the type 
+	Attempting to use the direct type injection in the latter approach will result in render error because the engine is unable to resolve the type 
 
 == Dependency injection end
 
 == MODULES START
 
-the app.module.client.ts is the module that will be sent to the clients browser
-so, imports such as HttpModule,BrowserAnimationsModule, etc need to be imported there
+	the app.module.client.ts is the module that will be sent to the clients browser
+	so, imports such as HttpModule,BrowserAnimationsModule, etc need to be imported there
 
-the app.module.server.ts is for server side rendering
-so, there is no need for modules that interact in realtime or invoke external dependencies
+	the app.module.server.ts is for server side rendering
+	so, there is no need for modules that interact in realtime or invoke external dependencies
 
-If the client module uses BrowserAnimationsModule,
-then the server module should import the NoopAnimationsModule (which stands for no-operation)
+	If the client module uses BrowserAnimationsModule,
+	then the server module should import the NoopAnimationsModule (which stands for no-operation)
 
 
 == MODULES END

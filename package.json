@@ -2,7 +2,8 @@
   "name": "Dashboard",
   "version": "1.0.0",
   "scripts": {
-    "test": "karma start ClientApp/test/karma.conf.js"
+    "test": "karma start ClientApp/test/karma.conf.js",
+    "build": "webpack --config webpack.config.vendor.js" 
   },
   "dependencies": {
     "@angular/animations": "4.1.2",

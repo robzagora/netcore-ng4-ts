@@ -37,12 +37,17 @@ export class HomeComponent extends Navigatable {
         this.newsService
             .getNews()
             .takeUntil(this.componentDestroying)
-            .subscribe(news => {
-                this.news = news;
+            .subscribe(
+                news => {
+                    this.news = news;
 
-                this.workFinished();
-                this.snackbarService.showSnackbar('news loaded');
-            });
+                    this.workFinished();
+                    this.snackbarService.showSnackbar('News loaded');
+                },
+                error => {
+                    this.workFinished();
+                    this.snackbarService.showSnackbar('Unable to retrieve news.', undefined, 10000);
+                });
     }
 
     ngAfterViewInit() {
