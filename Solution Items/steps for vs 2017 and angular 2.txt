@@ -4,7 +4,7 @@
 	-- Example
 	https://channel9.msdn.com/Events/Visual-Studio/Visual-Studio-2017-Launch/WEB-103
 
-	-- Icons 
+	-- Components 
 	https://material.angular.io/components
 
 == Solution Setup Start

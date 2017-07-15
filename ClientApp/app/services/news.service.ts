@@ -1,6 +1,7 @@
 ﻿import { Injectable, InjectionToken } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { ORIGIN_URL } from './../components/shared/constants';
 
 import 'rxjs/Rx';
 
@@ -15,12 +16,10 @@ export class News {
 @Injectable()
 export class NewsService {
 
-    private http: Http;
     private headers: Headers;
     private putRequestOptions: RequestOptions;
 
-    constructor(http: Http) {
-        this.http = http;
+    constructor(private http: Http) {
 
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/json');
@@ -30,14 +29,8 @@ export class NewsService {
 
     getNews(): Observable<News[]> {
 
-        // TODO: make this a const 
-        // https://github.com/MarkPieszak/aspnetcore-angular2-universal/blob/master/Client/app/shared/user.service.ts
-        // let baseUrl = new InjectionToken<string>('ORIGIN_URL').toString();
-
-        let request = "http://localhost:52505/api/news/getall";
-
         return this.http
-            .get(request)
+            .get('/api/news/getall')
             .map((response: Response) => {
                 return response.json() as News[];
             })
