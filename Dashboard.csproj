@@ -30,6 +30,7 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\css\main.scss" />
     <Content Include="wwwroot\css\ng-theme.css" />
   </ItemGroup>
   <ItemGroup>

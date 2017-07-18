@@ -1,7 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { AppRoutes, AppRoute } from './../../modules/app-routing.module';
+import { AppRoute } from './../../library/routing/app.route';
+import { AppRoutes } from './../../modules/app-routing.module';
 
 @Injectable()
 export class NavService {
@@ -10,5 +11,9 @@ export class NavService {
         return AppRoutes
             .filter(route => route.isUserRoutable())
             .map(route => route.getPath());
+    }
+
+    getAppRoutes(): AppRoute[] {
+        return AppRoutes.filter(route => route.isUserRoutable());
     }
 }

@@ -2,6 +2,7 @@
 
 import { Subscription } from 'rxjs/Subscription';
 
+import { AppRoute } from './../../library/routing/app.route';
 import { ProgressService, ProgressState } from './../../services/progress.service';
 import { NavService } from './nav.service';
 
@@ -17,10 +18,10 @@ export class NavComponent {
 
     private state: string = 'inactive';
     private subscription: Subscription;
-    private links: string[] = [];
+    private routes: AppRoute[] = [];
 
     constructor(private navService: NavService, private progressService: ProgressService) {
-        this.links = this.navService.getUserRoutableRoutes();
+        this.routes = this.navService.getAppRoutes();
     }
 
     ngOnInit() {

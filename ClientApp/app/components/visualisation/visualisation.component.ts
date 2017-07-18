@@ -1,5 +1,4 @@
-﻿
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 import { Navigatable } from './../shared/navigatable';
 import { ProgressService } from './../../services/progress.service';
 import { NavService } from './../nav/nav.service';
@@ -7,18 +6,17 @@ import { NavService } from './../nav/nav.service';
 import { easeInOutVoid } from './../shared/animations';
 
 @Component({
-    selector: 'about',
-    templateUrl: './about.component.html',
+    selector: 'visualisation',
+    templateUrl: './visualisation.component.html',
+    styleUrls: ['./visualisation.component.min.css'],
     animations: [easeInOutVoid]
 })
-export class AboutComponent extends Navigatable {
+export class VisualisationComponent extends Navigatable {
 
-    private test: string;
 
     constructor(progressService: ProgressService) {
         super(progressService);
-
-        this.test = 'ABout Test';
+        
     }
 
     ngAfterViewInit() {

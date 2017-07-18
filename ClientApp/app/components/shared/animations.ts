@@ -41,12 +41,12 @@ export const easeInOutVoid = trigger('easeInOutVoid', [
         style({
             opacity: 1,
         }),
-        animate('0.2s ease-in')
+        animate('0.7s ease-in')
     ]),
     transition('* => void', [
         style({
             opacity: 0,
         }),
-        animate('0.2s ease-out')
+        animate('0.7s ease-out')
     ])
 ]);
