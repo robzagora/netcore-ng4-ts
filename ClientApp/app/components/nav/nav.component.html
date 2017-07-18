@@ -2,8 +2,8 @@
     <md-card-content>
         <nav md-tab-nav-bar>
             <button [routerLinkActive]="['nav-active']" md-button *ngFor="let route of routes" [routerLink]="route.getPath()">
-                <md-icon *ngIf="route.getIconName()">{{ route.getIconName() }}</md-icon>
-                {{ capitalizeLink(route.getPath()) }}
+                <md-icon *ngIf="route.getIconName()">{{route.getIconName()}}</md-icon>
+                {{capitalizeLink(route.getPath())}}
             </button>
             <button md-button (click)="login()" style="float:right;">
                 <md-icon>account_circle</md-icon>

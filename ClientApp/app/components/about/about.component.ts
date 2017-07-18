@@ -21,7 +21,7 @@ export class AboutComponent extends Navigatable {
         this.test = 'ABout Test';
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         this.workFinished();
     }
 

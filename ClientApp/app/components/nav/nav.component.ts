@@ -31,7 +31,7 @@ export class NavComponent {
     }
     
     capitalizeLink(link: string) {
-        return link.toUpperCase();
+        return link.toUpperCase().trim();
     }
 
     toggleProgressBar() {

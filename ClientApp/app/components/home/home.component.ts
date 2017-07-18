@@ -51,7 +51,7 @@ export class HomeComponent extends Navigatable {
                 });
     }
 
-    ngAfterViewInit() {
+    ngOnInit() {
         this.getNews();
     }
 

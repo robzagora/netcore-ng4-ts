@@ -1,4 +1,4 @@
 ﻿export const Home = 'home',
-    About = 'about',
-    Visualisation = 'visualisation',
+    About = 'About',
+    Visualisation = 'Visualisation',
     NotFound = '404';
