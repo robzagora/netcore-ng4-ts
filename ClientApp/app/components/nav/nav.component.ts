@@ -1,7 +1,9 @@
 ﻿import { Component } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { Subscription } from 'rxjs/Subscription';
 
+import { LoginDialogComponent } from './../login/login-dialog.component';
 import { AppRoute } from './../../library/routing/app.route';
 import { ProgressService, ProgressState } from './../../services/progress.service';
 import { NavService } from './nav.service';
@@ -20,7 +22,7 @@ export class NavComponent {
     private subscription: Subscription;
     private routes: AppRoute[] = [];
 
-    constructor(private navService: NavService, private progressService: ProgressService) {
+    constructor(private navService: NavService, private progressService: ProgressService, public dialog: MdDialog) {
         this.routes = this.navService.getAppRoutes();
     }
 
@@ -38,7 +40,17 @@ export class NavComponent {
         this.state = (this.state === 'inactive' ? 'active' : 'inactive');
     }
 
-    login() {
-        console.log(this.login.toString() + ' - login');
+    openLoginDialog() {
+
+        let dialogRef = this.dialog.open(
+            LoginDialogComponent,
+            {
+                height: '200px',
+                width: '200px'
+            });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+        });
     }
 }

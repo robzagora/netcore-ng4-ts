@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
     bootstrap: sharedConfig.bootstrap,
     declarations: sharedConfig.declarations,
+    entryComponents: sharedConfig.entryComponents,
     imports: [
         BrowserAnimationsModule,
         BrowserModule,

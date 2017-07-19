@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from './components/app/app.component';
-import { NavComponent } from './components/nav/nav.component';
-
-// This is very important to do in order to allow slider/toggling animations to work with material 
-import 'hammerjs';
 
 import {
-    MdCoreModule, 
-    MdDialogModule, 
+    MdCoreModule,
+    MdDialogModule,
     MdChipsModule,
-    MdCardModule, 
+    MdCardModule,
     MdButtonModule,
     MdInputModule,
     MdCheckboxModule,
@@ -24,6 +19,13 @@ import {
     MdTooltipModule
 } from '@angular/material';
 
+// This is very important to do in order to allow slider/toggling animations to work with material 
+import 'hammerjs';
+
+import { AppComponent } from './components/app/app.component';
+import { NavComponent } from './components/nav/nav.component';
+import { LoginDialogComponent } from './components/login/login-dialog.component';
+
 //Should be last in load order
 import { AppRoutingModule, routableComponents } from './modules/app-routing.module';
 
@@ -32,8 +34,10 @@ export const sharedConfig: NgModule = {
     declarations: [
         AppComponent,
         NavComponent,
+        LoginDialogComponent,
         routableComponents
     ],
+    entryComponents: [LoginDialogComponent],
     imports: [
         AppRoutingModule,
         MdCoreModule,

@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
     bootstrap: sharedConfig.bootstrap,
     declarations: sharedConfig.declarations,
+    entryComponents: sharedConfig.entryComponents,
     imports: [
         ServerModule,
         NoopAnimationsModule,

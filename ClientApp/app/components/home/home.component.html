@@ -26,7 +26,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 center-block text-center" *ngFor="let item of news">
-                <span style="cursor: pointer;" mdTooltip="{{ item.name }}" mdTooltipPosition="left">Name: {{ item.name }} (ID: {{item.value}})</span>
+                <span class="news-item" mdTooltip="ID: {{ item.value }}" mdTooltipPosition="left">Name: {{ item.name }}</span>
                 <br />
             </div>
         </div>
