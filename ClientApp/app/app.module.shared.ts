@@ -20,7 +20,8 @@ import {
     MdTableModule,
     MdMenuModule,
     MdSnackBarModule,
-    MdSliderModule
+    MdSliderModule,
+    MdTooltipModule
 } from '@angular/material';
 
 //Should be last in load order
@@ -48,6 +49,7 @@ export const sharedConfig: NgModule = {
         MdTableModule,
         MdMenuModule,
         MdSnackBarModule,
-        MdSliderModule
+        MdSliderModule,
+        MdTooltipModule
     ]
 };

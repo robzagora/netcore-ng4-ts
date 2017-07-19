@@ -27,17 +27,15 @@ export class VisualisationComponent extends Navigatable {
     // Example used:
     // https://github.com/datencia/d3js-angular2-example/tree/master/01_line_chart
 
-    private parentElementId: string = "#graphicsRow";
-
-    title: string = 'D3.js with Angular 2!';
-    subtitle: string = 'Line Chart';
+    private graphicsContainerElementId: string = "#graphicsRow";
+    private lineChartId: string = "#lineChart";
 
     private margin = { top: 20, right: 20, bottom: 30, left: 50 };
     private width: number;
     private height: number;
     private x: any;
     private y: any;
-    private svg: any;
+    private lineChartSvg: any;
     private line: d3Shape.Line<[number, number]>;
 
     constructor(progressService: ProgressService) {
@@ -46,7 +44,7 @@ export class VisualisationComponent extends Navigatable {
 
     ngOnInit() {
 
-        this.width = $(this.parentElementId).width() - this.margin.left - this.margin.right;
+        this.width = $(this.graphicsContainerElementId).width() - this.margin.left - this.margin.right;
         this.height = 600 - this.margin.top - this.margin.bottom;
 
         this.initSvg()
@@ -62,7 +60,7 @@ export class VisualisationComponent extends Navigatable {
     }
 
     private initSvg() {
-        this.svg = d3.select("svg")
+        this.lineChartSvg = d3.select(this.lineChartId)
             .attr("width", "100%")
             .attr("height", "600px")
             .append("g")
@@ -78,12 +76,12 @@ export class VisualisationComponent extends Navigatable {
 
     private drawAxis() {
 
-        this.svg.append("g")
+        this.lineChartSvg.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + this.height + ")")
             .call(d3Axis.axisBottom(this.x));
 
-        this.svg.append("g")
+        this.lineChartSvg.append("g")
             .attr("class", "axis axis--y")
             .call(d3Axis.axisLeft(this.y))
             .append("text")
@@ -100,7 +98,7 @@ export class VisualisationComponent extends Navigatable {
             .x((d: any) => this.x(d.date))
             .y((d: any) => this.y(d.value));
 
-        this.svg.append("path")
+        this.lineChartSvg.append("path")
             .datum(Stocks)
             .attr("class", "line")
             .attr("d", this.line);
