@@ -34,7 +34,6 @@
     <Content Include="wwwroot\css\ng-theme.css" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\Api\" />
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">

@@ -10,13 +10,14 @@ import * as $ from "jquery";
 
 import { Navigatable } from './../shared/navigatable';
 import { ProgressService } from './../../services/progress.service';
+import { VisualisationService } from './../../services/visualisation.service';
 import { NavService } from './../nav/nav.service';
 
-import { Stocks } from './../../library/visualisation/temp-data';
+import { Stock } from './../../library/visualisation/temp-data';
 
 import { easeIn } from './../shared/animations';
 
-@Component({
+@Component({ 
     selector: 'visualisation',
     templateUrl: './visualisation.component.html',
     styleUrls: ['./visualisation.component.min.css'],
@@ -37,8 +38,9 @@ export class VisualisationComponent extends Navigatable {
     private y: any;
     private lineChartSvg: any;
     private line: d3Shape.Line<[number, number]>;
+    private stocks: Stock[] = [];
 
-    constructor(progressService: ProgressService) {
+    constructor(progressService: ProgressService, private visualisationService: VisualisationService) {
         super(progressService);
     }
 
@@ -47,12 +49,23 @@ export class VisualisationComponent extends Navigatable {
         this.width = $(this.graphicsContainerElementId).width() - this.margin.left - this.margin.right;
         this.height = 600 - this.margin.top - this.margin.bottom;
 
-        this.initSvg()
-        this.initAxis();
-        this.drawAxis();
-        this.drawLine();
+        this.visualisationService
+            .getStocks()
+            .takeUntil(this.componentDestroying)
+            .subscribe(
+                stocks => {
+                    this.stocks = stocks;
 
-        this.workFinished();
+                    this.initSvg()
+                    this.initAxis();
+                    this.drawAxis();
+                    this.drawLine();
+
+                    this.workFinished();
+                },
+                error => {
+                    this.workFinished();
+                });
     }
 
     ngOnDestroy() {
@@ -70,8 +83,8 @@ export class VisualisationComponent extends Navigatable {
     private initAxis() {
         this.x = d3Scale.scaleTime().range([0, this.width]);
         this.y = d3Scale.scaleLinear().range([this.height, 0]);
-        this.x.domain(d3Array.extent(Stocks, (d) => d.date));
-        this.y.domain(d3Array.extent(Stocks, (d) => d.value));
+        this.x.domain(d3Array.extent(this.stocks, (d) => d.date));
+        this.y.domain(d3Array.extent(this.stocks, (d) => d.value));
     }
 
     private drawAxis() {
@@ -99,7 +112,7 @@ export class VisualisationComponent extends Navigatable {
             .y((d: any) => this.y(d.value));
 
         this.lineChartSvg.append("path")
-            .datum(Stocks)
+            .datum(this.stocks)
             .attr("class", "line")
             .attr("d", this.line);
     }
