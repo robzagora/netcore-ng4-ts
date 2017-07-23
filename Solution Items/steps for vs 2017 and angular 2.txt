@@ -88,7 +88,7 @@
 
 	Components need to be registered to app.module "entryComponents" property
 
-	This is because dialogs by their nature are short lived components and only appear at certain cases so they are lazy loaded
+	This is because dialogs by their nature are short lived components and only appear at certain cases so they are lazy loaded by angular
 	Registering at the entryComponents allows angular to create instantiation providers/factories for the supplied components
 
 
