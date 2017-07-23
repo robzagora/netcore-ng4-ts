@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { Navigatable } from './../shared/navigatable';
-import { NavService } from './../nav/nav.service';
+import { Navigatable } from './../../library/routing/navigatable';
+import { NavService } from './../../services/nav.service';
 import { ProgressService } from './../../services/progress.service';
 import { SnackbarService } from './../../services/snackbar.service';
 import { NewsService, News } from './../../services/news.service';
 
-import { easeIn } from './../shared/animations';
+import { easeIn } from './../../library/visualisation/animations';
 
 @Component({
     selector: 'home',

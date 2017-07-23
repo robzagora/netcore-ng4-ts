@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavService } from './../nav/nav.service';
+import { NavService } from './../../services/nav.service';
 import { NewsService } from './../../services/news.service';
 import { ProgressService } from './../../services/progress.service'
 import { SnackbarService } from './../../services/snackbar.service';

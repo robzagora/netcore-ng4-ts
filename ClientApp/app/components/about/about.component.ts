@@ -1,10 +1,11 @@
 ﻿
 import { Component } from '@angular/core';
-import { Navigatable } from './../shared/navigatable';
-import { ProgressService } from './../../services/progress.service';
-import { NavService } from './../nav/nav.service';
 
-import { easeIn } from './../shared/animations';
+import { Navigatable } from './../../library/routing/navigatable';
+import { ProgressService } from './../../services/progress.service';
+import { NavService } from './../../services/nav.service';
+
+import { easeIn } from './../../library/visualisation/animations';
 
 @Component({
     selector: 'about',

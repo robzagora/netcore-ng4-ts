@@ -6,9 +6,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { LoginDialogComponent } from './../login/login-dialog.component';
 import { AppRoute } from './../../library/routing/app.route';
 import { ProgressService, ProgressState } from './../../services/progress.service';
-import { NavService } from './nav.service';
+import { NavService } from './../../services/nav.service';
 
-import { easeInOutWithState } from './../shared/animations';
+import { easeInOutWithState } from './../../library/visualisation/animations';
 
 @Component({
     selector: 'app-nav', 

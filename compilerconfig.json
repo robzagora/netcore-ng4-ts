@@ -18,5 +18,9 @@
   {
     "outputFile": "ClientApp/app/components/nav/nav.component.css",
     "inputFile": "ClientApp/app/components/nav/nav.component.scss"
+  },
+  {
+    "outputFile": "ClientApp/app/components/shared/not-found.component.css",
+    "inputFile": "ClientApp/app/components/shared/not-found.component.scss"
   }
 ]

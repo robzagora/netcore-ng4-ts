@@ -1,7 +1,6 @@
 ﻿import { Injectable, InjectionToken } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ORIGIN_URL } from './../components/shared/constants';
 
 import 'rxjs/Rx';
 

@@ -1,8 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { AppRoute } from './../../library/routing/app.route';
-import { AppRoutes } from './../../modules/app-routing.module';
+import { AppRoute } from './../library/routing/app.route';
+import { AppRoutes } from './../modules/app-routing.module';
 
 @Injectable()
 export class NavService {

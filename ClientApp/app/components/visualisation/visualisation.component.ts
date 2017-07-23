@@ -8,14 +8,14 @@ import * as d3Axis from "d3-axis";
 
 import * as $ from "jquery";
 
-import { Navigatable } from './../shared/navigatable';
+import { Navigatable } from './../../library/routing/navigatable';
 import { ProgressService } from './../../services/progress.service';
 import { VisualisationService } from './../../services/visualisation.service';
-import { NavService } from './../nav/nav.service';
+import { NavService } from './../../services/nav.service';
 
 import { Stock } from './../../library/visualisation/temp-data';
 
-import { easeIn } from './../shared/animations';
+import { easeIn } from './../../library/visualisation/animations';
 
 @Component({ 
     selector: 'visualisation',

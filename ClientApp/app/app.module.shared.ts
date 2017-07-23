@@ -16,7 +16,8 @@ import {
     MdMenuModule,
     MdSnackBarModule,
     MdSliderModule,
-    MdTooltipModule
+    MdTooltipModule,
+    MdProgressSpinnerModule
 } from '@angular/material';
 
 // This is very important to do in order to allow slider/toggling animations to work with material 
@@ -54,6 +55,7 @@ export const sharedConfig: NgModule = {
         MdMenuModule,
         MdSnackBarModule,
         MdSliderModule,
-        MdTooltipModule
+        MdTooltipModule,
+        MdProgressSpinnerModule
     ]
 };
