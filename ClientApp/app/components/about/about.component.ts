@@ -4,12 +4,12 @@ import { Navigatable } from './../shared/navigatable';
 import { ProgressService } from './../../services/progress.service';
 import { NavService } from './../nav/nav.service';
 
-import { easeInOutVoid } from './../shared/animations';
+import { easeIn } from './../shared/animations';
 
 @Component({
     selector: 'about',
     templateUrl: './about.component.html',
-    animations: [easeInOutVoid]
+    animations: [easeIn]
 })
 export class AboutComponent extends Navigatable {
 

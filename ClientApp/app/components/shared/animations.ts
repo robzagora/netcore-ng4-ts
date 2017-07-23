@@ -6,6 +6,15 @@
     animate
 } from '@angular/core';
 
+export const easeIn = trigger('easeIn', [
+    transition('void => *', [
+        style({
+            opacity: 0
+        }),
+        animate('0.15s ease-in')
+    ])
+]);
+
 export const flyInOut = trigger('flyInOut', [
     state('in', style({ opacity: 1, transform: 'translateX(0)' })),
     transition('void => *', [
@@ -34,19 +43,4 @@ export const easeInOutWithState = trigger('easeInOutWithState', [
     })),
     transition('inactive => active', animate('0.2s ease-in')),
     transition('active => inactive', animate('0.2s ease-out'))
-]);
-
-export const easeInOutVoid = trigger('easeInOutVoid', [
-    transition('void => *', [
-        style({
-            opacity: 1,
-        }),
-        animate('0.7s ease-in')
-    ]),
-    transition('* => void', [
-        style({
-            opacity: 0,
-        }),
-        animate('0.7s ease-out')
-    ])
-]);
+]); 

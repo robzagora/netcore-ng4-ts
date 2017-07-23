@@ -42,15 +42,10 @@ export class NavComponent {
 
     openLoginDialog() {
 
-        let dialogRef = this.dialog.open(
-            LoginDialogComponent,
-            {
-                height: '200px',
-                width: '200px'
-            });
+        let dialogRef = this.dialog.open(LoginDialogComponent);
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
+            // handle auth result
         });
     }
 }

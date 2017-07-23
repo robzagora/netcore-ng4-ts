@@ -6,13 +6,13 @@ import { ProgressService } from './../../services/progress.service';
 import { SnackbarService } from './../../services/snackbar.service';
 import { NewsService, News } from './../../services/news.service';
 
-import { easeInOutVoid } from './../shared/animations';
+import { easeIn } from './../shared/animations';
 
 @Component({
     selector: 'home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.min.css'],
-    animations: [easeInOutVoid]
+    animations: [easeIn]
 })
 export class HomeComponent extends Navigatable {
 

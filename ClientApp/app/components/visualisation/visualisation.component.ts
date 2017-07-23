@@ -14,13 +14,13 @@ import { NavService } from './../nav/nav.service';
 
 import { Stocks } from './../../library/visualisation/temp-data';
 
-import { easeInOutVoid } from './../shared/animations';
+import { easeIn } from './../shared/animations';
 
 @Component({
     selector: 'visualisation',
     templateUrl: './visualisation.component.html',
     styleUrls: ['./visualisation.component.min.css'],
-    animations: [easeInOutVoid]
+    animations: [easeIn]
 })
 export class VisualisationComponent extends Navigatable {
 

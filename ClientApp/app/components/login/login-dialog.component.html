@@ -1,18 +1,26 @@
-﻿<form>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <md-input-container>
-                    <input mdInput placeholder="Username" [(ngModel)]="user.username" required>
-                </md-input-container>
+﻿<form [formGroup]="userForm" (ngSubmit)="performLogin(userForm.value)">
+
+    <md-dialog-content>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <md-input-container>
+                        <input mdInput placeholder="Username" [formControl]="userForm.controls['username']" name="username" required>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <md-input-container>
+                        <input mdInput type="password" placeholder="Password" [formControl]="userForm.controls['password']" name="password" required>
+                    </md-input-container>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <md-input-container>
-                    <input mdInput type="password" placeholder="Password" [(ngModel)]="user.password" required>
-                </md-input-container>
-            </div>
-        </div>
-    </div>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <button md-raised-button type="submit" class="mat-primary" [disabled]="!userForm.valid">Submit</button>
+    </md-dialog-actions>
+
 </form>
