@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 import {
     MdCoreModule,
     MdDialogModule,
@@ -38,6 +40,7 @@ export const sharedConfig: NgModule = {
         LoginDialogComponent,
         routableComponents
     ],
+    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
     entryComponents: [LoginDialogComponent],
     imports: [
         AppRoutingModule,

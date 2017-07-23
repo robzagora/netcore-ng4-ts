@@ -1,11 +1,15 @@
 ﻿
 div {
-    .not-found-container {
+    &.not-found-container {
         height: 100%;
         width: 100%;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
 
-        .error {
-            text-align: center;
+        span {
+            .error {
+            }
         }
     }
 }
