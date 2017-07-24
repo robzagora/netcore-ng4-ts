@@ -1,11 +1,11 @@
 ﻿<nav class="navbar-fixed-top">
-    <md-card id="app-nav" class=" mat-primary mat-elevation-z6">
-        <md-card-content>
+    <md-card id="app-nav" class="mat-primary mat-elevation-z6">
+        <md-card-content class="nav-content-center">
             <button [routerLinkActive]="['mat-primary']" md-button *ngFor="let route of routes" [routerLink]="route.getPath()">
                 <md-icon *ngIf="route.getIconName()">{{route.getIconName()}}</md-icon>
                 {{capitalizeLink(route.getPath())}}
             </button>
-            <button class="mat-primary" md-raised-button (click)="openLoginDialog()" style="float:right;">
+            <button class="mat-primary" md-button (click)="openLoginDialog()" style="float:right;">
                 <md-icon>account_circle</md-icon>
                 Login
             </button>
