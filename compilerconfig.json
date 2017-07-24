@@ -26,5 +26,9 @@
   {
     "outputFile": "ClientApp/app/components/app/app.component.css",
     "inputFile": "ClientApp/app/components/app/app.component.scss"
+  },
+  {
+    "outputFile": "ClientApp/app/components/profile/profile.component.css",
+    "inputFile": "ClientApp/app/components/profile/profile.component.scss"
   }
 ]

@@ -5,7 +5,13 @@
                 <md-icon *ngIf="route.getIconName()">{{route.getIconName()}}</md-icon>
                 {{capitalizeLink(route.getPath())}}
             </button>
-            <button class="mat-primary" md-button (click)="openLoginDialog()" style="float:right;">
+
+            <button *ngIf="loggedIn" class="mat-primary" md-button (click)="logout()" style="float:right">
+                <md-icon>account_circle</md-icon>
+                Logout
+            </button>
+
+            <button *ngIf="!loggedIn" class="mat-primary" md-button (click)="openLoginDialog()" style="float:right;">
                 <md-icon>account_circle</md-icon>
                 Login
             </button>

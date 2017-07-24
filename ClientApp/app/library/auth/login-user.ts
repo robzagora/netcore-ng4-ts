@@ -1,4 +1,14 @@
 ﻿export class LoginUser {
-    public username: string = '';
-    public password: string = '';
+
+    constructor(private username: string = "", private password: string = "") {
+
+    }
+
+    getUsername(): string {
+        return this.username;
+    }
+
+    getPassword(): string {
+        return this.password;
+    }
 }
