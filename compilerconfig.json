@@ -22,5 +22,9 @@
   {
     "outputFile": "ClientApp/app/components/shared/not-found.component.css",
     "inputFile": "ClientApp/app/components/shared/not-found.component.scss"
+  },
+  {
+    "outputFile": "ClientApp/app/components/app/app.component.css",
+    "inputFile": "ClientApp/app/components/app/app.component.scss"
   }
 ]

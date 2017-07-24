@@ -1,6 +1,6 @@
-﻿<md-card id="app-nav" class="mat-primary mat-elevation-z6">
-    <md-card-content>
-        <nav md-tab-nav-bar>
+﻿<nav class="navbar-fixed-top">
+    <md-card id="app-nav" class=" mat-primary mat-elevation-z6">
+        <md-card-content>
             <button [routerLinkActive]="['mat-primary']" md-button *ngFor="let route of routes" [routerLink]="route.getPath()">
                 <md-icon *ngIf="route.getIconName()">{{route.getIconName()}}</md-icon>
                 {{capitalizeLink(route.getPath())}}
@@ -9,10 +9,10 @@
                 <md-icon>account_circle</md-icon>
                 Login
             </button>
-        </nav>
-    </md-card-content>
+        </md-card-content>
 
-    <md-card-footer>
-        <md-progress-bar mode="indeterminate" [@easeInOutWithState]="state"></md-progress-bar>
-    </md-card-footer>
-</md-card>
+        <md-card-footer>
+            <md-progress-bar mode="indeterminate" [@easeInOutWithState]="state"></md-progress-bar>
+        </md-card-footer>
+    </md-card>
+</nav>
