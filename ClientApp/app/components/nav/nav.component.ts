@@ -50,14 +50,7 @@ export class NavComponent {
     }
 
     openLoginDialog() {
-
-        let dialogRef = this.dialog.open(LoginDialogComponent);
-
-        dialogRef.afterClosed().subscribe(result => {
-            
-            console.log(result);
-
-        });
+        this.dialog.open(LoginDialogComponent);
     }
 
     logout() {

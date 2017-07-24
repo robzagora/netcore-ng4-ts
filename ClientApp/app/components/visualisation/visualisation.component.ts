@@ -69,6 +69,8 @@ export class VisualisationComponent extends Navigatable {
     }
 
     ngOnDestroy() {
+        this.finaliseComponent();
+
         this.workOngoing();
     }
 

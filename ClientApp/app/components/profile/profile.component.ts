@@ -24,6 +24,8 @@ export class ProfileComponent extends Navigatable {
     }
 
     ngOnDestroy() {
+        this.finaliseComponent();
+
         this.workOngoing();
     }
 }

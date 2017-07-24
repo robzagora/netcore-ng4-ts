@@ -28,16 +28,18 @@ export class LoginDialogComponent {
     }
 
     ngOnInit() {
-        this.authService.loggedInObservable.subscribe(loggedIn => {
+        this.logginSubscription = this.authService.loggedInObservable.subscribe(loggedIn => {
             if (loggedIn) {
                 this.dialogRef.close();
             }
         });
     }
 
-    performLogin(value: any) {
-        console.log(value);
+    ngOnDestroy() {
+        this.logginSubscription.unsubscribe();
+    }
 
+    performLogin(value: any) {
         this.authService.login(new LoginUser(value.username, value.password));
     }
 }
