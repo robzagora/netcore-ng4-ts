@@ -19,13 +19,11 @@ export class LoginDialogComponent {
 
     private loginOngoing: boolean;
 
-    // The FormGroup object as you may remember from the simple form example exposes various API’s for dealing with forms. Here we are creating a new object and setting its type to FormGroup
-    userForm: FormGroup;
+    private loginForm: FormGroup;
 
     constructor(private formBuild: FormBuilder, private authService: AuthService, public dialogRef: MdDialogRef<LoginDialogComponent>) {
 
-        this.userForm = formBuild.group({
-            // We can set default values by passing in the corresponding value or leave blank if we wish to not set the value. For our example, we’ll default the gender to female.
+        this.loginForm = formBuild.group({
             'username': [null, Validators.required],
             'password': [null, Validators.required],
         })
@@ -33,7 +31,7 @@ export class LoginDialogComponent {
 
     ngOnInit() {
         this.loginOngoingSubscription = this.authService.loginOngoingObservable.subscribe(loginOngoing => {
-            loginOngoing ? this.userForm.disable() : this.userForm.enable();
+            loginOngoing ? this.loginForm.disable() : this.loginForm.enable();
             this.loginOngoing = loginOngoing;
         });
         this.loggedInSubscription = this.authService.loggedInObservable.subscribe(loggedIn => {

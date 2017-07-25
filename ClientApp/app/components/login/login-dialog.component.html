@@ -1,18 +1,18 @@
 ﻿<div class="login-container">
-    <form id="loginForm" [formGroup]="userForm" (ngSubmit)="performLogin(userForm.value)">
+    <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="performLogin(loginForm.value)">
         <md-dialog-content>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <md-input-container>
-                            <input mdInput placeholder="Username" [formControl]="userForm.controls['username']" name="username" required>
+                            <input mdInput placeholder="Username" [formControl]="loginForm.controls['username']" name="username" required>
                         </md-input-container>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <md-input-container>
-                            <input mdInput type="password" placeholder="Password" [formControl]="userForm.controls['password']" name="password" required>
+                            <input mdInput type="password" placeholder="Password" [formControl]="loginForm.controls['password']" name="password" required>
                         </md-input-container>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
 
         <md-dialog-actions>
 
-            <button md-raised-button type="submit" class="login-button mat-primary fill" [disabled]="!userForm.valid">
+            <button md-raised-button type="submit" class="login-button mat-primary fill" [disabled]="!loginForm.valid">
                 <md-progress-spinner *ngIf="loginOngoing" class="spinner-overlay" color="primary" mode="indeterminate"></md-progress-spinner>
                 {{ loginOngoing ? '' : 'Submit' }}
             </button>
