@@ -35,3 +35,9 @@ button {
         line-height: inherit;
     }
 }
+
+span {
+    &.trademark {
+        font-size: 24px;
+    }
+}
