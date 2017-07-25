@@ -9,11 +9,15 @@ import { AuthService } from './../../services/auth.service';
 
 @Component({
     selector: 'login-dialog',
-    templateUrl: './login-dialog.component.html'
+    templateUrl: './login-dialog.component.html',
+    styleUrls: ['./login-dialog.component.min.css']
 })
 export class LoginDialogComponent {
 
-    private logginSubscription: Subscription;
+    private loggedInSubscription: Subscription;
+    private loginOngoingSubscription: Subscription;
+
+    private loginOngoing: boolean;
 
     // The FormGroup object as you may remember from the simple form example exposes various API’s for dealing with forms. Here we are creating a new object and setting its type to FormGroup
     userForm: FormGroup;
@@ -28,7 +32,11 @@ export class LoginDialogComponent {
     }
 
     ngOnInit() {
-        this.logginSubscription = this.authService.loggedInObservable.subscribe(loggedIn => {
+        this.loginOngoingSubscription = this.authService.loginOngoingObservable.subscribe(loginOngoing => {
+            loginOngoing ? this.userForm.disable() : this.userForm.enable();
+            this.loginOngoing = loginOngoing;
+        });
+        this.loggedInSubscription = this.authService.loggedInObservable.subscribe(loggedIn => {
             if (loggedIn) {
                 this.dialogRef.close();
             }
@@ -36,7 +44,7 @@ export class LoginDialogComponent {
     }
 
     ngOnDestroy() {
-        this.logginSubscription.unsubscribe();
+        this.loggedInSubscription.unsubscribe();
     }
 
     performLogin(value: any) {

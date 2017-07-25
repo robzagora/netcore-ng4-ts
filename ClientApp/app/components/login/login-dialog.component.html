@@ -1,26 +1,31 @@
-﻿<form [formGroup]="userForm" (ngSubmit)="performLogin(userForm.value)">
-
-    <md-dialog-content>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <md-input-container>
-                        <input mdInput placeholder="Username" [formControl]="userForm.controls['username']" name="username" required>
-                    </md-input-container>
+﻿<div class="login-container">
+    <form id="loginForm" [formGroup]="userForm" (ngSubmit)="performLogin(userForm.value)">
+        <md-dialog-content>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <md-input-container>
+                            <input mdInput placeholder="Username" [formControl]="userForm.controls['username']" name="username" required>
+                        </md-input-container>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <md-input-container>
+                            <input mdInput type="password" placeholder="Password" [formControl]="userForm.controls['password']" name="password" required>
+                        </md-input-container>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <md-input-container>
-                        <input mdInput type="password" placeholder="Password" [formControl]="userForm.controls['password']" name="password" required>
-                    </md-input-container>
-                </div>
-            </div>
-        </div>
-    </md-dialog-content>
+        </md-dialog-content>
 
-    <md-dialog-actions>
-        <button md-raised-button type="submit" class="mat-primary" [disabled]="!userForm.valid">Submit</button>
-    </md-dialog-actions>
+        <md-dialog-actions>
 
-</form>
+            <button md-raised-button type="submit" class="login-button mat-primary fill" [disabled]="!userForm.valid">
+                <md-progress-spinner *ngIf="loginOngoing" class="spinner-overlay" color="primary" mode="indeterminate"></md-progress-spinner>
+                {{ loginOngoing ? '' : 'Submit' }}
+            </button>
+
+        </md-dialog-actions>
+    </form>
+</div>

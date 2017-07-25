@@ -16,3 +16,18 @@ body {
         }
     }
 }
+
+.fill {
+    width: 100%;
+}
+
+.spinner-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: auto;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 1;
+    z-index: 500000;
+}

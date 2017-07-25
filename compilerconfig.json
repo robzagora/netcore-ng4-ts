@@ -30,5 +30,9 @@
   {
     "outputFile": "ClientApp/app/components/profile/profile.component.css",
     "inputFile": "ClientApp/app/components/profile/profile.component.scss"
+  },
+  {
+    "outputFile": "ClientApp/app/components/login/login-dialog.component.css",
+    "inputFile": "ClientApp/app/components/login/login-dialog.component.scss"
   }
 ]

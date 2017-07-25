@@ -13,9 +13,11 @@ export class AuthService extends HttpServiceBase implements CanActivate {
 
     // Observable item source
     private loggedInState = new BehaviorSubject<boolean>(false);
+    private loginOngoing = new BehaviorSubject<boolean>(false);
 
     // Observable item stream
     loggedInObservable = this.loggedInState.asObservable();
+    loginOngoingObservable = this.loginOngoing.asObservable();
 
     private headers: Headers;
     private putRequestOptions: RequestOptions;
@@ -38,10 +40,14 @@ export class AuthService extends HttpServiceBase implements CanActivate {
 
         if (!this.loggedInState.value) {
 
+            this.loginOngoing.next(true);
+
             let body = JSON.stringify({ Username: credentials.getUsername(), Password: credentials.getPassword() });
 
             this.put('/api/auth/login', body, this.putRequestOptions)
                 .map((response: Response) => {
+
+                    this.loginOngoing.next(false);
 
                     console.log(response.statusText);
 
