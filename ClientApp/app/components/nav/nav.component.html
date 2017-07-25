@@ -1,21 +1,33 @@
 ﻿<nav class="navbar-fixed-top">
-    <md-card id="app-nav" class="mat-primary mat-elevation-z6">
-        <md-card-content class="nav-content-center">
-            <button [routerLinkActive]="['mat-primary']" md-button *ngFor="let route of routes" [routerLink]="route.getPath()">
-                <md-icon *ngIf="route.getIconName()">{{route.getIconName()}}</md-icon>
-                {{capitalizeLink(route.getPath())}}
-            </button>
+    <md-card id="app-nav" class="nav-card mat-primary mat-elevation-z6">
+        <div class="container nav-container">
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>A</strong>ngular 2 + <strong>T</strong>ypescript
+                </div>
+                <div class="col-md-6">
+                    <md-card-content class="nav-card-content">
+                        <button [routerLinkActive]="['mat-primary']" md-button *ngFor="let route of routes" [routerLink]="route.getPath()">
+                            <md-icon *ngIf="route.getIconName()">{{route.getIconName()}}</md-icon>
+                            {{capitalizeLink(route.getPath())}}
+                        </button>
 
-            <button *ngIf="loggedIn" class="mat-primary" md-button (click)="logout()" style="float:right">
-                <md-icon>account_circle</md-icon>
-                Logout
-            </button>
+                        <button *ngIf="loggedIn" class="nav-login-btn mat-primary" md-button (click)="logout()" style="float:right">
+                            <md-icon>account_circle</md-icon>
+                            Logout
+                        </button>
 
-            <button *ngIf="!loggedIn" class="mat-primary" md-button (click)="openLoginDialog()" style="float:right;">
-                <md-icon>account_circle</md-icon>
-                Login
-            </button>
-        </md-card-content>
+                        <button *ngIf="!loggedIn" class="nav-logout-btn mat-primary" md-button (click)="openLoginDialog()" style="float:right;">
+                            <md-icon>account_circle</md-icon>
+                            Login
+                        </button>
+                    </md-card-content>
+                </div>
+                <div class="col-md-3">
+                    <!-- Open space in nav-->
+                </div>
+            </div>
+        </div>
 
         <md-card-footer>
             <md-progress-bar mode="indeterminate" [@easeInOutWithState]="state"></md-progress-bar>

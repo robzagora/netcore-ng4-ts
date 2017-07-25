@@ -1,9 +1,25 @@
-﻿.nav-button {
+﻿.nav-card {
+  padding: 12px; }
+
+.nav-btn {
   margin-right: 8px; }
+
+.nav-card-content {
+  margin-bottom: 0px; }
 
 .nav-content-center {
   max-width: 50%;
   margin: auto;
   padding-left: 15px;
   padding-right: 15px; }
+
+.container.nav-container {
+  width: 100% !important;
+  line-height: 48px; }
+
+button.nav-login-btn {
+  line-height: inherit; }
+
+button.nav-logout-btn {
+  line-height: inherit; }
 
