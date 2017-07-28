@@ -20,14 +20,13 @@ import { easeInOutWithState } from './../../library/visualisation/animations';
 export class NavComponent { 
 
     private state: string = 'inactive';
-    private loggedIn: boolean = false;
+    private dialogOpened: boolean = false;
 
     private progressSubscription: Subscription;
-    private logginSubscription: Subscription;
 
     private routes: AppRoute[] = [];
 
-    constructor(private navService: NavService, private progressService: ProgressService, private authService: AuthService, public dialog: MdDialog) {
+    constructor(private navService: NavService, private progressService: ProgressService, private authService: AuthService,  public dialog: MdDialog) {
         this.routes = this.navService.getAppRoutes();
     }
 
@@ -35,25 +34,29 @@ export class NavComponent {
         this.progressSubscription = this.progressService.stateObservable.subscribe(item => {
             this.state = (item == ProgressState.Ongoing ? 'active' : 'inactive');
         });
-
-        this.logginSubscription = this.authService.loggedInObservable.subscribe(login => {
-            this.loggedIn = login;
-        })
     }
     
     capitalizeLink(link: string) {
         return link.toUpperCase().trim();
     }
 
-    toggleProgressBar() {
-        this.state = (this.state === 'inactive' ? 'active' : 'inactive');
-    }
-
     openLoginDialog() {
-        this.dialog.open(LoginDialogComponent);
+
+        if (!this.dialogOpened)
+        {
+            let dialogRef = this.dialog.open(LoginDialogComponent);
+
+            this.dialogOpened = true;
+
+            let subscription = dialogRef.afterClosed().subscribe(() => {
+                this.dialogOpened = false;
+                subscription.unsubscribe();
+            });
+        }
     }
 
     logout() {
         this.authService.logout();
+        this.navService.goToHome();
     }
 }

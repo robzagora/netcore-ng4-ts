@@ -10,7 +10,7 @@ import { easeIn } from './../../library/visualisation/animations';
 @Component({
     selector: 'profile',
     templateUrl: './profile.component.html',
-    styleUrls: ['./profile.component.css.min'],
+    styleUrls: ['./profile.component.min.css'],
     animations: [easeIn]
 })
 export class ProfileComponent extends Navigatable {

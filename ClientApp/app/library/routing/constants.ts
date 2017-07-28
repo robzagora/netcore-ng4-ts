@@ -1,4 +1,5 @@
-﻿export const Home = 'Home',
-    About = 'About',
-    Visualisation = 'Visualisation',
-    NotFound = '404';
+﻿export const Home: string = 'Home',
+    About: string = 'About',
+    Visualisation: string = 'Visualisation',
+    Profile: string = 'Profile',
+    NotFound: string = '404';

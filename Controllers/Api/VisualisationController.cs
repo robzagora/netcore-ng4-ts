@@ -23,13 +23,24 @@
 
             int totalDays = Randomizer.GetRandomInt(1, 500);
 
+            double maxStockIncrease = 30;
+
+            double potentialDip = 20;
+
+            double previous = 100;
+
             var stocks = Enumerable
                 .Range(1, totalDays)
                 .Select(i =>
                 {
+                    double daysMin = Randomizer.GetRandomDouble(previous - potentialDip, previous + maxStockIncrease);
+                    double stock = Randomizer.GetRandomDouble(daysMin, previous + maxStockIncrease);
+
+                    previous = stock;
+
                     return new Stock
                     {
-                        Value = Math.Round(Randomizer.GetRandomDouble(200, 600), 2),
+                        Value = Math.Round(stock, 2),
                         Date = DateTime.Now.AddDays(i - totalDays)
                     };
                 })

@@ -28,6 +28,9 @@ export class VisualisationComponent extends Navigatable {
     // Example used:
     // https://github.com/datencia/d3js-angular2-example/tree/master/01_line_chart
 
+    private initialised: boolean = false;
+    private loading: boolean = true;
+
     private graphicsContainerElementId: string = "#graphicsRow";
     private lineChartId: string = "#lineChart";
 
@@ -49,10 +52,30 @@ export class VisualisationComponent extends Navigatable {
         this.width = $(this.graphicsContainerElementId).width() - this.margin.left - this.margin.right;
         this.height = 600 - this.margin.top - this.margin.bottom;
 
+        this.initialised = true;
+
+        this.fetchStocks();
+    }
+
+    ngOnDestroy() {
+        this.finaliseComponent();
+
+        this.workOngoing();
+    }
+
+    fetchStocks() {
+
+        this.workOngoing();
+
+        if (this.initialised)
+        {
+            d3.selectAll("svg > *").remove();
+        }
+
         this.visualisationService
             .getStocks()
             .takeUntil(this.componentDestroying)
-            .subscribe(
+            .subscribe( // we don't need to unsubscribe from http requests - https://www.seangwright.me/blog/development/unsubscribe-angular-2-http-observables/
                 stocks => {
                     this.stocks = stocks;
 
@@ -66,12 +89,6 @@ export class VisualisationComponent extends Navigatable {
                 error => {
                     this.workFinished();
                 });
-    }
-
-    ngOnDestroy() {
-        this.finaliseComponent();
-
-        this.workOngoing();
     }
 
     private initSvg() {

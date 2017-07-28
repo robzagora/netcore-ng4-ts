@@ -30,6 +30,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { LoginDialogComponent } from './components/login/login-dialog.component';
 
 import { AuthService } from './services/auth.service';
+import { AuthGuard } from './library/auth/auth-guard';
 
 //Should be last in load order
 import { AppRoutingModule, routableComponents } from './modules/app-routing.module';
@@ -42,7 +43,7 @@ export const sharedConfig: NgModule = {
         LoginDialogComponent,
         routableComponents
     ],
-    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AuthService],
+    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AuthService, AuthGuard],
     entryComponents: [LoginDialogComponent],
     imports: [
         AppRoutingModule,

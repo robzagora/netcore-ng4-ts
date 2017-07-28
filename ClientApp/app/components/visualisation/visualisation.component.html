@@ -1,8 +1,26 @@
-﻿<div class="row" [@easeIn]>
+﻿
+<div class="row" [@easeIn]>
     <div class="col-md-6 col-md-offset-3">
         <md-card class="router-outlet-card">
-            <div id="graphicsRow" class="row">
-                <svg id="lineChart"></svg>
+            <div class="container visualisation-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Stock Visualisation</h2>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="mat-primary" md-raised-button (click)="fetchStocks()">Regenerate</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="graphicsRow">
+                            <svg id="lineChart"></svg>
+                        </div>
+                    </div>
+                </div>
             </div>
         </md-card>
     </div>

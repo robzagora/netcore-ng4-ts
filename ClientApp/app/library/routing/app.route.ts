@@ -1,6 +1,6 @@
 ﻿export class AppRoute {
 
-    constructor(private path: string, private friendlyName: string, private iconName: string = '', private userRoutable: boolean = true) {
+    constructor(private path: string, private friendlyName: string, private iconName: string = '', private mainNavRoutable: boolean = true) {
     }
 
     getPath(): string {
@@ -15,7 +15,7 @@
         return this.iconName;
     }
 
-    isUserRoutable(): boolean {
-        return this.userRoutable;
+    isMainNavRoutable(): boolean {
+        return this.mainNavRoutable;
     }
 }

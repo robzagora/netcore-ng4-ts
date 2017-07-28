@@ -1,2 +1,14 @@
-﻿body {
+﻿div {
+    &.container {
+        &.visualisation-container {
+            position: relative;
+        }
+    }
+
+    #graphicsRow {
+
+
+        svg {
+        }
+    }
 }
