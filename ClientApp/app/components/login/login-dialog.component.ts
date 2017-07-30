@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { LoginUser } from './../../library/auth/login-user';
 import { AuthService } from './../../services/auth.service';
+import { NavService } from './../../services/nav.service';
 
 @Component({
     selector: 'login-dialog',
@@ -21,9 +22,9 @@ export class LoginDialogComponent {
 
     private loginForm: FormGroup;
 
-    constructor(private formBuild: FormBuilder, private authService: AuthService, public dialogRef: MdDialogRef<LoginDialogComponent>) {
+    constructor(private formBuilder: FormBuilder, private authService: AuthService, private navService: NavService, public dialogRef: MdDialogRef<LoginDialogComponent>) {
 
-        this.loginForm = formBuild.group({
+        this.loginForm = formBuilder.group({
             'username': [null, Validators.required],
             'password': [null, Validators.required],
         })
@@ -47,5 +48,10 @@ export class LoginDialogComponent {
 
     performLogin(value: any) {
         this.authService.login(new LoginUser(value.username, value.password));
+    }
+
+    goToRegistration() {
+        this.dialogRef.close();
+        this.navService.goToRegistration();
     }
 }

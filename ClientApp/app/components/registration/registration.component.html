@@ -1,0 +1,43 @@
+﻿<div class="row" [@easeIn]>
+    <div class="col-md-6 col-md-offset-3">
+        <md-card class="router-outlet-card">
+            <md-card-content>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Registration</h1>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <form id="registrationForm" [formGroup]="registrationForm" (ngSubmit)="performRegistrationForm(registrationForm.value)">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <md-input-container>
+                                            <input mdInput placeholder="Username" [formControl]="registrationForm.controls['username']" name="username" required>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <input mdInput type="password" placeholder="Password" [formControl]="registrationForm.controls['password']" name="password" required>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <input mdInput type="email" placeholder="Email" [formControl]="registrationForm.controls['email']" name="email" required>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button md-raised-button type="submit" class="mat-primary">
+                                            <md-progress-spinner *ngIf="registering" class="spinner-overlay" color="primary" mode="indeterminate"></md-progress-spinner>
+                                            {{ registering ? '' : 'Register' }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>

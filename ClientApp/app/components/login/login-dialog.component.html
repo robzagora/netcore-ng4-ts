@@ -21,10 +21,16 @@
 
         <md-dialog-actions>
 
-            <button md-raised-button type="submit" class="login-button mat-primary fill" [disabled]="!loginForm.valid">
-                <md-progress-spinner *ngIf="loginOngoing" class="spinner-overlay" color="primary" mode="indeterminate"></md-progress-spinner>
-                {{ loginOngoing ? '' : 'Submit' }}
-            </button>
+            <div class="form-action-btns">
+                <button md-raised-button type="submit" class="login-button mat-primary fill" [disabled]="!loginForm.valid">
+                    <md-progress-spinner *ngIf="loginOngoing" class="spinner-overlay" color="primary" mode="indeterminate"></md-progress-spinner>
+                    {{ loginOngoing ? '' : 'Submit' }}
+                </button>
+
+                <button type="button" md-button class="login-button mat-primary fill" [disabled]="loginOngoing" (click)="goToRegistration()">
+                    Create Account
+                </button>
+            </div>
 
         </md-dialog-actions>
     </form>

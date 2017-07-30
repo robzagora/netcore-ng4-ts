@@ -9,3 +9,11 @@
 #loginForm {
     margin-bottom: 24px;
 }
+
+div {
+    &.form-action-btns {
+        button:not(:last-child) {
+            margin-bottom: 12px;
+        }
+    }
+}

@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { AppRoute } from './../library/routing/app.route';
-import { Home, Profile } from './../library/routing/constants';
+import { Home, Profile, Registration } from './../library/routing/constants';
 import { AppRoutes } from './../modules/app-routing.module';
 
 @Injectable()
@@ -30,6 +30,10 @@ export class NavService {
 
     goToProfile() {
         this.router.navigate([Profile]);
+    }
+
+    goToRegistration() {
+        this.router.navigate([Registration]);
     }
 
     goBack() {
