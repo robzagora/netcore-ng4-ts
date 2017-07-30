@@ -29,7 +29,13 @@ import { AppComponent } from './components/app/app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { LoginDialogComponent } from './components/login/login-dialog.component';
 
+import { NavService } from './services/nav.service';
+import { NewsService } from './services/news.service';
+import { ProgressService } from './services/progress.service'
+import { SnackbarService } from './services/snackbar.service';
+import { VisualisationService } from './services/visualisation.service';
 import { AuthService } from './services/auth.service';
+
 import { AuthGuard } from './library/auth/auth-guard';
 
 //Should be last in load order
@@ -43,10 +49,18 @@ export const sharedConfig: NgModule = {
         LoginDialogComponent,
         routableComponents
     ],
-    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, AuthService, AuthGuard],
+    providers: [
+        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        NavService,
+        NewsService,
+        ProgressService,
+        SnackbarService,
+        VisualisationService,
+        AuthService,
+        AuthGuard,
+    ],
     entryComponents: [LoginDialogComponent],
     imports: [
-        AppRoutingModule,
         MdCoreModule,
         MdDialogModule,
         MdChipsModule,
@@ -62,6 +76,7 @@ export const sharedConfig: NgModule = {
         MdSnackBarModule,
         MdSliderModule,
         MdTooltipModule,
-        MdProgressSpinnerModule
+        MdProgressSpinnerModule,
+        AppRoutingModule
     ]
 };

@@ -27,7 +27,7 @@ export class NavComponent {
     private routes: AppRoute[] = [];
 
     constructor(private navService: NavService, private progressService: ProgressService, private authService: AuthService,  public dialog: MdDialog) {
-        this.routes = this.navService.getAppRoutes();
+        this.routes = this.navService.getMainNavRoutes();
     }
 
     ngOnInit() {

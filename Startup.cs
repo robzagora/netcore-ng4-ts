@@ -5,13 +5,16 @@ namespace Dashboard
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SpaServices.Webpack;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
+    using Newtonsoft.Json;
 
     public class Startup
     {
@@ -59,43 +62,64 @@ namespace Dashboard
                     HotModuleReplacement = true
                 });
             }
-            else
+
+            app.Use(async (context, next) =>
             {
-                app.UseExceptionHandler("/Home/Error");
-            }
+                if (context.Request.IsHttps)
+                {
+                    await next();
+                }
+                else
+                {
+                    string httpsRedirect;
 
-            //app.UseExceptionHandler(appBuilder =>
-            //{
-            //    appBuilder.Use(async (context, next) =>
-            //    {
-            //        var error = context.Features[typeof(IExceptionHandlerFeature)] as IExceptionHandlerFeature;
+                    if (env.IsDevelopment())
+                    {
+                        httpsRedirect = "https://localhost:44380" + context.Request.Path;
+                    }
+                    else
+                    {
+                        httpsRedirect = "https://" + context.Request.Host + context.Request.Path;
+                    }
 
-            //        if (error != null && error.Error is SecurityTokenExpiredException)
-            //        {
-            //            context.Response.StatusCode = 401;
-            //            context.Response.ContentType = "application/json";
+                    context.Response.Redirect(httpsRedirect);
+                }
+            });
 
-            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(new RequestResult
-            //            {
-            //                State = RequestState.NotAuth,
-            //                Msg = "token expired"
-            //            }));
-            //        }
-            //        else if (error != null && error.Error != null)
-            //        {
-            //            context.Response.StatusCode = 500;
-            //            context.Response.ContentType = "application/json";
-            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(new RequestResult
-            //            {
-            //                State = RequestState.Failed,
-            //                Msg = error.Error.Message
-            //            }));
-            //        }
-            //        else await next();
-            //    });
-            //});
+            app.UseExceptionHandler(appBuilder =>
+            {
+                appBuilder.Use(async (context, next) =>
+                {
+                    var error = context.Features[typeof(IExceptionHandlerFeature)] as IExceptionHandlerFeature;
 
-            app.UseStaticFiles();
+                    if (error != null && error.Error is SecurityTokenExpiredException)
+                    {
+                        context.Response.StatusCode = 401;
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                        {
+                            State = "NotAuth",
+                            Msg = "Token expired"
+                        }));
+                    }
+                    else if (error != null && error.Error != null)
+                    {
+                        context.Response.StatusCode = 500;
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(new
+                        {
+                            State = "Failed",
+                            Msg = error.Error.Message
+                        }));
+                    }
+                    else
+                    {
+                        await next();
+                    }
+                });
+            });
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions()
             {
@@ -109,6 +133,8 @@ namespace Dashboard
                     ClockSkew = TimeSpan.FromMinutes(0)
                 }
             });
+
+            app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {

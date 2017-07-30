@@ -1,16 +1,9 @@
 import { Component } from '@angular/core';
 
-import { NavService } from './../../services/nav.service';
-import { NewsService } from './../../services/news.service';
-import { ProgressService } from './../../services/progress.service'
-import { SnackbarService } from './../../services/snackbar.service';
-import { VisualisationService } from './../../services/visualisation.service';
-
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    providers: [NavService, NewsService, ProgressService, SnackbarService, VisualisationService]
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
     // investigate whether navigation events are better 

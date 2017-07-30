@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/Rx';
 
-import { Stock } from './../library/visualisation/temp-data';
+import { Stock } from './../library/visualisation/models';
 
 import { HttpServiceBase } from './../library/http/http-service-base';
 
@@ -22,11 +22,9 @@ export class VisualisationService extends HttpServiceBase {
 
                 let json = response.json() as Array<any>;
 
-                let stocks = json.map(r => {
+                return json.map(r => {
                     return { date: new Date(r.date), value: r.value } as Stock;
                 })
-
-                return stocks;
             });
     }
 }

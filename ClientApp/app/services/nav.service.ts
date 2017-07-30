@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { AppRoute } from './../library/routing/app.route';
@@ -9,17 +10,17 @@ import { AppRoutes } from './../modules/app-routing.module';
 @Injectable()
 export class NavService {
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private location: Location) {
 
     }
 
-    getNavRoutableRoutes(): string[] {
+    getMainNavPaths(): string[] {
         return AppRoutes
             .filter(route => route.isMainNavRoutable())
             .map(route => route.getPath());
     }
 
-    getAppRoutes(): AppRoute[] {
+    getMainNavRoutes(): AppRoute[] {
         return AppRoutes.filter(route => route.isMainNavRoutable());
     }
 
@@ -29,5 +30,9 @@ export class NavService {
 
     goToProfile() {
         this.router.navigate([Profile]);
+    }
+
+    goBack() {
+        this.location.back();
     }
 }

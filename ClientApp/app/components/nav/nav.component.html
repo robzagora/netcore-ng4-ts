@@ -15,8 +15,7 @@
                         </button>
 
                         <button *ngIf="authService.isLoggedIn()" class="nav-login-btn mat-primary" md-button  [md-menu-trigger-for]="menu" style="float:right">
-                            <md-icon>account_circle</md-icon>
-                            {{ authService.getLoggedInUser() }}
+                            Hello, <u>{{ authService.getLoggedInUser() }}</u>!
                         </button>
 
                         <button *ngIf="!authService.isLoggedIn()" class="nav-logout-btn mat-primary" md-button (click)="openLoginDialog()" style="float:right;">
@@ -25,23 +24,24 @@
                         </button>
 
                         <md-menu #menu="mdMenu">
-                            <div style="padding-top:80px;padding-left:12px; padding-right:12px;">
-                                <button md-menu-item (click)="navService.goToProfile()">Profile</button>
-                                <!--<hr />-->
-                                <!--<div>
-            <md-input-container>
-                <input mdInput type="password" placeholder="Password" name="password" (click)="$event.stopPropagation()" required>
-            </md-input-container>
-        </div>-->
+                            <div class="user-menu">
+                                <button md-menu-item (click)="navService.goToProfile()">
+                                    <md-icon>account_circle</md-icon>
+                                    Profile
+                                </button>
                                 <hr />
-                                <button md-menu-item (click)="logout()">Logout</button>
+                                <button md-menu-item (click)="logout()">
+                                    <md-icon>exit_to_app</md-icon>
+                                    Logout
+                                </button>
                             </div>
                         </md-menu>
                     </md-card-content>
                 </div>
                 <!-- Open space in nav-->
-            </div>
                 <div class="col-md-3">
+
+                </div>
             </div>
         </div>
 

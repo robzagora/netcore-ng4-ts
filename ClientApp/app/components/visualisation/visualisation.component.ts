@@ -13,9 +13,9 @@ import { ProgressService } from './../../services/progress.service';
 import { VisualisationService } from './../../services/visualisation.service';
 import { NavService } from './../../services/nav.service';
 
-import { Stock } from './../../library/visualisation/temp-data';
-
 import { easeIn } from './../../library/visualisation/animations';
+
+import { Stock } from './../../library/visualisation/models';
 
 @Component({ 
     selector: 'visualisation',
@@ -48,7 +48,6 @@ export class VisualisationComponent extends Navigatable {
     }
 
     ngOnInit() {
-
         this.width = $(this.graphicsContainerElementId).width() - this.margin.left - this.margin.right;
         this.height = 600 - this.margin.top - this.margin.bottom;
 
@@ -64,7 +63,6 @@ export class VisualisationComponent extends Navigatable {
     }
 
     fetchStocks() {
-
         this.workOngoing();
 
         if (this.initialised)
@@ -92,7 +90,8 @@ export class VisualisationComponent extends Navigatable {
     }
 
     private initSvg() {
-        this.lineChartSvg = d3.select(this.lineChartId)
+        this.lineChartSvg = d3
+            .select(this.lineChartId)
             .attr("width", "100%")
             .attr("height", "600px")
             .append("g")
@@ -107,13 +106,14 @@ export class VisualisationComponent extends Navigatable {
     }
 
     private drawAxis() {
-
-        this.lineChartSvg.append("g")
+        this.lineChartSvg
+            .append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(0," + this.height + ")")
             .call(d3Axis.axisBottom(this.x));
 
-        this.lineChartSvg.append("g")
+        this.lineChartSvg
+            .append("g")
             .attr("class", "axis axis--y")
             .call(d3Axis.axisLeft(this.y))
             .append("text")
@@ -126,11 +126,13 @@ export class VisualisationComponent extends Navigatable {
     }
 
     private drawLine() {
-        this.line = d3Shape.line()
+        this.line = d3Shape
+            .line()
             .x((d: any) => this.x(d.date))
             .y((d: any) => this.y(d.value));
 
-        this.lineChartSvg.append("path")
+        this.lineChartSvg
+            .append("path")
             .datum(this.stocks)
             .attr("class", "line")
             .attr("d", this.line);
