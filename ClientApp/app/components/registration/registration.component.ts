@@ -23,10 +23,11 @@ export class RegistrationComponent extends Navigatable {
         super(progressService); 
 
         this.registrationForm = formBuilder.group({
-            'email': [null, Validators.required, Validators.email],
-            'username': [null, Validators.required], //Validators.minLength(6)], 
-            'password': [null, Validators.required], //Validators.minLength(6)],
-        })
+            'email': [null, [Validators.required, Validators.email]],
+            'username': [null, [Validators.required, Validators.minLength(6)]],
+            'password': [null, [Validators.required, Validators.minLength(6)]],
+            'location': [null]
+        });
     }
 
     ngOnInit() {

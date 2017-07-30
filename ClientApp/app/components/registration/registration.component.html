@@ -10,26 +10,32 @@
                 <hr />
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="registrationForm" [formGroup]="registrationForm" (ngSubmit)="performRegistrationForm(registrationForm.value)">
+                        <form id="registrationForm" [formGroup]="registrationForm" (ngSubmit)="performRegistration(registrationForm.value)">
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <md-input-container>
-                                            <input mdInput placeholder="Username" [formControl]="registrationForm.controls['username']" name="username" required>
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <md-input-container class="fill">
+                                            <input mdInput type="email" placeholder="Email" [formControl]="registrationForm.controls['email']" name="email" required>
                                         </md-input-container>
-                                        <md-input-container>
+                                        <md-input-container class="fill">
+                                            <input mdInput type="text" placeholder="Username" [formControl]="registrationForm.controls['username']" name="username" required>
+                                        </md-input-container>
+                                        <md-input-container class="fill">
                                             <input mdInput type="password" placeholder="Password" [formControl]="registrationForm.controls['password']" name="password" required>
                                         </md-input-container>
-                                        <md-input-container>
-                                            <input mdInput type="email" placeholder="Email" [formControl]="registrationForm.controls['email']" name="email" required>
+                                        <md-input-container class="fill">
+                                            <input mdInput type="text" placeholder="Location" [formControl]="registrationForm.controls['location']" name="location">
                                         </md-input-container>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <button md-raised-button type="submit" class="mat-primary">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button md-raised-button type="submit" class="mat-primary" [disabled]="!registrationForm.valid">
                                             <md-progress-spinner *ngIf="registering" class="spinner-overlay" color="primary" mode="indeterminate"></md-progress-spinner>
                                             {{ registering ? '' : 'Register' }}
+                                        </button>
+                                        <button md-button type="reset" class="mat-warn pull-right" [disabled]="registering">
+                                            Clear
                                         </button>
                                     </div>
                                 </div>
