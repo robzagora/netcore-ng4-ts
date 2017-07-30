@@ -1,5 +1,9 @@
 namespace Dashboard
 {
+    using System;
+    using Dashboard.Library.Authentication;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -7,6 +11,7 @@ namespace Dashboard
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Microsoft.IdentityModel.Tokens;
 
     public class Startup
     {
@@ -26,6 +31,13 @@ namespace Dashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+
             // Add framework services.
             services.AddMvc(options =>
             {
@@ -52,7 +64,51 @@ namespace Dashboard
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            //app.UseExceptionHandler(appBuilder =>
+            //{
+            //    appBuilder.Use(async (context, next) =>
+            //    {
+            //        var error = context.Features[typeof(IExceptionHandlerFeature)] as IExceptionHandlerFeature;
+
+            //        if (error != null && error.Error is SecurityTokenExpiredException)
+            //        {
+            //            context.Response.StatusCode = 401;
+            //            context.Response.ContentType = "application/json";
+
+            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(new RequestResult
+            //            {
+            //                State = RequestState.NotAuth,
+            //                Msg = "token expired"
+            //            }));
+            //        }
+            //        else if (error != null && error.Error != null)
+            //        {
+            //            context.Response.StatusCode = 500;
+            //            context.Response.ContentType = "application/json";
+            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(new RequestResult
+            //            {
+            //                State = RequestState.Failed,
+            //                Msg = error.Error.Message
+            //            }));
+            //        }
+            //        else await next();
+            //    });
+            //});
+
             app.UseStaticFiles();
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions()
+            {
+                TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = Auth.Key,
+                    ValidAudience = Auth.Audience,
+                    ValidIssuer = Auth.Issuer,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(0)
+                }
+            });
 
             app.UseMvc(routes =>
             {
