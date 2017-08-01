@@ -37,6 +37,7 @@ import { VisualisationService } from './services/visualisation.service';
 import { AuthService } from './services/auth.service';
 
 import { AuthGuard } from './library/auth/auth-guard';
+import { LoggedInGuard } from './library/auth/logged-in-guard';
 
 //Should be last in load order
 import { AppRoutingModule, routableComponents } from './modules/app-routing.module';
@@ -58,6 +59,7 @@ export const sharedConfig: NgModule = {
         VisualisationService,
         AuthService,
         AuthGuard,
+        LoggedInGuard
     ],
     entryComponents: [LoginDialogComponent],
     imports: [

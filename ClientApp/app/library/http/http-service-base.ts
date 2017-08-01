@@ -11,21 +11,21 @@ export abstract class HttpServiceBase
     }
 
     protected get(url: string): Observable<Response> {
-        return this.http.get(url).catch(this.handleError);
+        return this.http.get(url);
     }
 
     protected put(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
 
         body = body == undefined ? JSON.stringify({}) : body;
 
-        return this.http.put(url, body, options).catch(this.handleError);
+        return this.http.put(url, body, options);
     }
 
     protected post(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
 
         body = body == undefined ? JSON.stringify({}) : body;
 
-        return this.http.post(url, body).catch(this.handleError);
+        return this.http.post(url, body);
     }
 
     private handleError(error: Response) {

@@ -1,6 +1,7 @@
 namespace Dashboard.Controllers.Api
 {
     using System;
+    using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Security.Principal;
@@ -8,6 +9,7 @@ namespace Dashboard.Controllers.Api
     using Dashboard.Library.Attributes;
     using Dashboard.Library.Authentication;
     using Dashboard.Library.Helpers;
+    using Dashboard.Library.Models;
     using Dashboard.Library.ViewModels;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.IdentityModel.Tokens;
@@ -16,18 +18,70 @@ namespace Dashboard.Controllers.Api
     [ControllerRoute]
     public class AuthController : Controller
     {
+        private IDictionary<string, User> UserDatabase;
+
+        public AuthController()
+        {
+            this.UserDatabase = new Dictionary<string, User>();
+
+            this.UserDatabase.Add(
+                "robzagora",
+                new User(
+                    "Rob",
+                    "robzagora",
+                    "Zagora",
+                    "robzagora@zagora.com",
+                    "12345"));
+        }
+
         [Route(nameof(Login))]
         [HttpPut]
         public ActionResult Login([FromBody] LoginViewModel viewModel)
         {
             if (this.TryValidateModel(viewModel))
             {
-                Thread.Sleep(Randomizer.GetRandomInt(0, 3000));
+                Thread.Sleep(Randomizer.GetRandomInt(0, 2000));
+
+                if (this.UserDatabase.TryGetValue(viewModel.Username, out User user))
+                {
+                    if (user.Password == viewModel.Password)
+                    {
+                        return this.Ok();
+                    }
+                }
+
+                return this.BadRequest("Invalid credentials");
+            }
+
+            return this.BadRequest("Invalid data");
+        }
+
+        [Route(nameof(Register))]
+        [HttpPost]
+        public ActionResult Register(string request)
+        {
+            RegistrationViewModel viewModel = JsonConvert.DeserializeObject<RegistrationViewModel>(request);
+
+            if (this.TryValidateModel(viewModel))
+            {
+                if (this.UserDatabase.TryGetValue(viewModel.Username, out User user))
+                {
+                    return this.BadRequest("Username already exists");
+                }
+
+                this.UserDatabase.Add(
+                    viewModel.Username,
+                    new User(
+                        viewModel.Name,
+                        viewModel.Surname,
+                        viewModel.Username,
+                        viewModel.Email,
+                        viewModel.Password));
 
                 return this.Ok();
             }
 
-            return this.BadRequest();
+            return this.BadRequest("Invalid data");
         }
 
         [Route(nameof(Logout))]

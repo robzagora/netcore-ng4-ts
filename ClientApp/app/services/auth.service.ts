@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { LoginUser } from './../library/auth/login-user';
+import { RegistrationModel } from './../library/auth/registration-model';
 import { HttpServiceBase } from './../library/http/http-service-base';
 
 @Injectable()
@@ -18,18 +19,21 @@ export class AuthService extends HttpServiceBase {
     loggedInObservable = this.loggedInState.asObservable();
     loginOngoingObservable = this.loginOngoing.asObservable();
 
-    private headers: Headers;
     private putRequestOptions: RequestOptions;
+    private postRequestOptions: RequestOptions;
 
     private user: string = '';
 
     constructor(http: Http) {
         super(http);
 
-        this.headers = new Headers();
-        this.headers.append('Content-Type', 'application/json');
+        let putHeader = new Headers();
+        putHeader.append('Content-Type', 'application/json');
+        this.putRequestOptions = new RequestOptions({ headers: putHeader });
 
-        this.putRequestOptions = new RequestOptions({ headers: this.headers });
+        let postHeader = new Headers();
+        postHeader.append('Content-Type', 'application/x-www-form-urlencoded');
+        this.postRequestOptions = new RequestOptions({ headers: postHeader });
     }
 
     isLoggedIn() {
@@ -40,6 +44,19 @@ export class AuthService extends HttpServiceBase {
         return this.user;
     }
 
+    register(data: RegistrationModel): Observable<Response> {
+
+        let body = JSON.stringify({
+            Name: data.getName(),
+            Surname: data.getSurname(),
+            Email: data.getEmail(),
+            Username: data.getUsername(),
+            Password: data.getPassword()
+        });
+
+        return this.post('/api/auth/register', body, this.postRequestOptions);
+    }
+
     login(credentials: LoginUser) {
 
         if (!this.loggedInState.value) {
@@ -48,20 +65,27 @@ export class AuthService extends HttpServiceBase {
 
             let body = JSON.stringify({ Username: credentials.getUsername(), Password: credentials.getPassword() });
 
-            this.put('/api/auth/login', body, this.putRequestOptions)
+            return this.put('/api/auth/login', body, this.putRequestOptions)
+                .catch(this.handleLoginError.bind(this)) // if we don't do the .bind(this) then in our function the "this" keyword won't the "this components" scope and would be it's own functions scope instead
+                // Ways to accomplish the same thing
+                //.catch((error: Response) => this.handleLoginError(error)) 
+                //.catch((error: Response) => {
+                //    this.loginOngoing.next(false); return Observable.throw(error.text);
+                //})
                 .map((response: Response) => {
 
                     this.loginOngoing.next(false);
-
-                    console.log(response.statusText);
 
                     if (response.status == 200) {
                         this.loggedInState.next(true);
                         this.user = credentials.getUsername();
                     }
+
+                    return response;
                 })
-                .subscribe();
         }
+
+        return Observable.empty<Response>();
     }
 
     logout() {
@@ -71,8 +95,6 @@ export class AuthService extends HttpServiceBase {
             this.put('/api/auth/logout')
                 .map((response: Response) => {
 
-                    console.log(response.statusText);
-
                     if (response.status == 200) {
                         this.loggedInState.next(false);
                         this.user = '';
@@ -80,5 +102,14 @@ export class AuthService extends HttpServiceBase {
                 })
                 .subscribe();
         }
+    }
+
+    private handleLoginError(error: Response) {
+
+        console.log(error);
+
+        this.loginOngoing.next(false);
+
+        return Observable.throw(error.text);
     }
 }

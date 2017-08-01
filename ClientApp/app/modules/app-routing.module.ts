@@ -11,6 +11,7 @@ import { NotFoundComponent } from './../components/shared/not-found.component';
 import { AppRoute } from './../library/routing/app.route';
 import { Home, About, Visualisation, Profile, Registration, NotFound } from './../library/routing/constants';
 import { AuthGuard } from './../library/auth/auth-guard';
+import { LoggedInGuard } from './../library/auth/logged-in-guard';
 
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: Home, }, // path cannot start with a slash
@@ -18,7 +19,7 @@ const routes: Routes = [
     { path: About, component: AboutComponent },
     { path: Visualisation, component: VisualisationComponent },
     { path: Profile, component: ProfileComponent, canActivate: [AuthGuard] },
-    { path: Registration, component: RegistrationComponent },
+    { path: Registration, component: RegistrationComponent, canActivate: [LoggedInGuard] },
     { path: NotFound, component: NotFoundComponent },
     { path: '**', pathMatch: 'full', redirectTo: NotFound },
 ];

@@ -47,7 +47,11 @@ export class LoginDialogComponent {
     }
 
     performLogin(value: any) {
-        this.authService.login(new LoginUser(value.username, value.password));
+        this.authService
+            .login(new LoginUser(value.username, value.password))
+            .subscribe(response => {
+                this.navService.goToHome();
+            });
     }
 
     goToRegistration() {
