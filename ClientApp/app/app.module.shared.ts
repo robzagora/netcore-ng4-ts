@@ -22,6 +22,10 @@ import {
     MdProgressSpinnerModule
 } from '@angular/material';
 
+import 'signalr';
+
+import { SignalRModule, SignalRConfiguration, ConnectionTransports } from 'ng2-signalr';
+
 // This is very important to do in order to allow slider/toggling animations to work with material 
 import 'hammerjs';
 
@@ -39,8 +43,21 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './library/auth/auth-guard';
 import { LoggedInGuard } from './library/auth/logged-in-guard';
 
+import { SignalrConnectionResolver } from './library/chat/signalr-connection-resolver';
+
 //Should be last in load order
 import { AppRoutingModule, routableComponents } from './modules/app-routing.module';
+
+export function createConfig(): SignalRConfiguration {
+    const c = new SignalRConfiguration();
+    c.hubName = 'chat';
+    c.qs = { user: 'rob' };
+    //c.url = 'http://ng2-signalr-backend.azurewebsites.net/';
+    c.logging = true;
+    c.transport = [ConnectionTransports.webSockets, ConnectionTransports.longPolling];
+
+    return c;
+}
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
@@ -59,7 +76,8 @@ export const sharedConfig: NgModule = {
         VisualisationService,
         AuthService,
         AuthGuard,
-        LoggedInGuard
+        LoggedInGuard,
+        SignalrConnectionResolver
     ],
     entryComponents: [LoginDialogComponent],
     imports: [
@@ -79,6 +97,7 @@ export const sharedConfig: NgModule = {
         MdSliderModule,
         MdTooltipModule,
         MdProgressSpinnerModule,
-        AppRoutingModule
+        AppRoutingModule,
+        SignalRModule.forRoot(createConfig)
     ]
 };

@@ -31,6 +31,8 @@ module.exports = (env) => {
                 'es6-promise',
                 'event-source-polyfill',
                 'jquery',
+                'signalr',
+                'ng2-signalr',
                 'zone.js',
             ]
         },

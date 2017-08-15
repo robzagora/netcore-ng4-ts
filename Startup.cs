@@ -47,6 +47,8 @@ namespace Dashboard
                 options.SslPort = 44380;
                 options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -135,6 +137,8 @@ namespace Dashboard
             });
 
             app.UseStaticFiles();
+
+            app.UseSignalR();
 
             app.UseMvc(routes =>
             {

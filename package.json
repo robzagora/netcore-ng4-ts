@@ -2,8 +2,10 @@
   "name": "Dashboard",
   "version": "1.0.0",
   "scripts": {
+    "start": " \"npm run vendorBuild\" \"gulp-restore\" ",
     "test": "karma start ClientApp/test/karma.conf.js",
-    "build": "webpack --config webpack.config.vendor.js" 
+    "vendor-build": "webpack --config webpack.config.vendor.js",
+    "gulp-restore": "gulp restore"
   },
   "dependencies": {
     "@angular/animations": "4.1.2",
@@ -24,22 +26,26 @@
     "aspnet-webpack": "^1.0.29",
     "awesome-typescript-loader": "3.1.3",
     "bootstrap": "3.3.7",
-    "d3": "4.10.0",
     "css": "2.2.1",
     "css-loader": "0.28.1",
+    "d3": "4.10.0",
     "es6-shim": "0.35.3",
     "event-source-polyfill": "0.0.9",
-    "expose-loader": "0.7.3",
+    "expose-loader": "^0.7.3",
     "extract-text-webpack-plugin": "2.1.0",
     "file-loader": "0.11.1",
+    "gulp": "^3.9.1",
+    "hammerjs": "2.0.8",
     "html-loader": "0.4.5",
     "isomorphic-fetch": "2.2.1",
-    "jquery": "3.2.1",
+    "jquery": "^3.2.1",
     "json-loader": "0.5.4",
+    "ng2-signalr": "^2.1.0",
     "preboot": "4.5.2",
     "raw-loader": "0.5.1",
     "reflect-metadata": "0.1.10",
     "rxjs": "5.4.0",
+    "signalr": "^2.2.2",
     "style-loader": "0.17.0",
     "to-string-loader": "1.1.5",
     "typescript": "2.3.2",
@@ -47,8 +53,7 @@
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.0",
     "webpack-merge": "4.1.0",
-    "zone.js": "0.8.10",
-    "hammerjs": "2.0.8"
+    "zone.js": "0.8.10"
   },
   "devDependencies": {
     "@types/chai": "3.5.2",

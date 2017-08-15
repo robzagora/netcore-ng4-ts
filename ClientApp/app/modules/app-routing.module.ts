@@ -13,10 +13,12 @@ import { Home, About, Visualisation, Profile, Registration, NotFound } from './.
 import { AuthGuard } from './../library/auth/auth-guard';
 import { LoggedInGuard } from './../library/auth/logged-in-guard';
 
+import { SignalrConnectionResolver } from './../library/chat/signalr-connection-resolver';
+
 const routes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: Home, }, // path cannot start with a slash
     { path: Home, component: HomeComponent },
-    { path: About, component: AboutComponent },
+    { path: About, component: AboutComponent, resolve: { connection: SignalrConnectionResolver } },
     { path: Visualisation, component: VisualisationComponent },
     { path: Profile, component: ProfileComponent, canActivate: [AuthGuard] },
     { path: Registration, component: RegistrationComponent, canActivate: [LoggedInGuard] },
