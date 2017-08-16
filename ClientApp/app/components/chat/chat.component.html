@@ -1,6 +1,6 @@
 ﻿<form id="chatForm" autocomplete="off">
     <h2>Chat Messages: </h2>
-    <div class="chat-container">
+    <div #chatContainer class="chat-container" [scrollTop]="chatContainer.scrollHeight">
         <chat-message *ngFor="let message of chatMessages" [message]="message"></chat-message>
     </div>
     <md-input-container class="fill">

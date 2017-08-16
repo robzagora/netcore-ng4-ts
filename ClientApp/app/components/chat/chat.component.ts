@@ -7,6 +7,7 @@ import { SignalRConnection, BroadcastEventListener } from 'ng2-signalr';
 
 import { AuthService } from './../../services/auth.service';
 import { Message } from './../../library/chat/interfaces';
+import { NewMessage } from './../../library/chat/server-interfaces';
 
 @Component({
     selector: 'chat',
@@ -37,12 +38,12 @@ export class ChatComponent
 
         this.connection.invoke(ChatComponent.Join, this.authService.getLoggedInUser());
 
-        this.userJoinedSubscription = this.connection.listenFor<string>(ChatComponent.UserJoined).subscribe((data) => {
+        this.userJoinedSubscription = this.connection.listenFor<string>(ChatComponent.UserJoined).subscribe(data => {
             this.chatMessages.push({ user: data, value: 'Joined' });
         });
 
-        this.messageSubscription = this.connection.listenFor<Message>(ChatComponent.NewMessage).subscribe((message) => {
-            this.chatMessages.push(message);
+        this.messageSubscription = this.connection.listenFor<NewMessage>(ChatComponent.NewMessage).subscribe(message => {
+            this.chatMessages.push({ user: message.Username, value: message.Message });
         });
     }
 
@@ -59,6 +60,7 @@ export class ChatComponent
             this.connection.invoke(ChatComponent.SendMessage, this.authService.getLoggedInUser(), this.message);
 
             this.message = '';
+            
         }
     }
 }
