@@ -42,5 +42,9 @@
   {
     "outputFile": "ClientApp/app/components/chat/chat.component.css",
     "inputFile": "ClientApp/app/components/chat/chat.component.scss"
+  },
+  {
+    "outputFile": "ClientApp/app/components/chat/chat-message.component.css",
+    "inputFile": "ClientApp/app/components/chat/chat-message.component.scss"
   }
 ]

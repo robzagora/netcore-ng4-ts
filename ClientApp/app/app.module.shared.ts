@@ -33,6 +33,7 @@ import { AppComponent } from './components/app/app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { LoginDialogComponent } from './components/login/login-dialog.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { ChatMessageComponent } from './components/chat/chat-message.component';
 
 import { NavService } from './services/nav.service';
 import { NewsService } from './services/news.service';
@@ -67,6 +68,7 @@ export const sharedConfig: NgModule = {
         NavComponent,
         LoginDialogComponent,
         ChatComponent,
+        ChatMessageComponent,
         routableComponents
     ],
     providers: [

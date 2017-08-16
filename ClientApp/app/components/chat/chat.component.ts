@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { SignalRConnection, BroadcastEventListener } from 'ng2-signalr';
 
 import { AuthService } from './../../services/auth.service';
+import { Message } from './../../library/chat/interfaces';
 
 @Component({
     selector: 'chat',
@@ -26,7 +27,7 @@ export class ChatComponent
     private messageSubscription: Subscription;
     private userJoinedSubscription: Subscription;
 
-    private chatMessages: string[] = [];
+    private chatMessages: Message[] = [];
 
     constructor(private activatedRoute: ActivatedRoute, private authService: AuthService) {
     }
@@ -36,15 +37,12 @@ export class ChatComponent
 
         this.connection.invoke(ChatComponent.Join, this.authService.getLoggedInUser());
 
-        this.userJoinedSubscription = this.connection.listenFor<string>(ChatComponent.UserJoined).subscribe((newUserMessage) => {
-            this.chatMessages.push(newUserMessage);
+        this.userJoinedSubscription = this.connection.listenFor<string>(ChatComponent.UserJoined).subscribe((data) => {
+            this.chatMessages.push({ user: data, value: 'Joined' });
         });
 
-        this.messageSubscription = this.connection.listenFor<string>(ChatComponent.NewMessage).subscribe((chatMessage) => {
-
-            if (chatMessage != null) {
-                this.chatMessages.push(chatMessage);
-            }
+        this.messageSubscription = this.connection.listenFor<Message>(ChatComponent.NewMessage).subscribe((message) => {
+            this.chatMessages.push(message);
         });
     }
 
@@ -54,9 +52,9 @@ export class ChatComponent
     }
 
     sendMessage() {
-
-        if (this.message != null || this.message.length > 0) {
-            this.chatMessages.push("Me: " + this.message);
+        
+        if (this.message != null && this.message.length > 0) {
+            this.chatMessages.push({ user: 'Me', value: this.message });
             // invoke a server side method, with parameters
             this.connection.invoke(ChatComponent.SendMessage, this.authService.getLoggedInUser(), this.message);
 
