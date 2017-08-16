@@ -54,7 +54,7 @@ export class AuthService extends HttpServiceBase {
             Password: data.getPassword()
         });
 
-        return this.post('/api/auth/register', body, this.postRequestOptions);
+        return this.put('/api/auth/register', body, this.putRequestOptions);
     }
 
     login(credentials: LoginUser) {

@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="WampSharp.AspNetCore.WebSockets.Server" Version="1.2.6.41-beta" />
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->

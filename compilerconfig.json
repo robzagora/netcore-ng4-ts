@@ -38,5 +38,9 @@
   {
     "outputFile": "ClientApp/app/components/registration/registration.component.css",
     "inputFile": "ClientApp/app/components/registration/registration.component.scss"
+  },
+  {
+    "outputFile": "ClientApp/app/components/chat/chat.component.css",
+    "inputFile": "ClientApp/app/components/chat/chat.component.scss"
   }
 ]

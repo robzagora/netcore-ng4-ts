@@ -18,20 +18,11 @@ namespace Dashboard.Controllers.Api
     [ControllerRoute]
     public class AuthController : Controller
     {
-        private IDictionary<string, User> UserDatabase;
+        protected readonly InMemoryUserDatabase UserDatabase;
 
-        public AuthController()
+        public AuthController(InMemoryUserDatabase userDatabase)
         {
-            this.UserDatabase = new Dictionary<string, User>();
-
-            this.UserDatabase.Add(
-                "robzagora",
-                new User(
-                    "Rob",
-                    "robzagora",
-                    "Zagora",
-                    "robzagora@zagora.com",
-                    "12345"));
+            this.UserDatabase = userDatabase;
         }
 
         [Route(nameof(Login))]
@@ -42,41 +33,37 @@ namespace Dashboard.Controllers.Api
             {
                 Thread.Sleep(Randomizer.GetRandomInt(0, 2000));
 
-                if (this.UserDatabase.TryGetValue(viewModel.Username, out User user))
+                User user = this.UserDatabase.Get(viewModel.Username);
+
+                if (user == null || user.Password != viewModel.Password)
                 {
-                    if (user.Password == viewModel.Password)
-                    {
-                        return this.Ok();
-                    }
+                    return this.BadRequest("Invalid credentials");
                 }
 
-                return this.BadRequest("Invalid credentials");
+                return this.Ok();
             }
 
             return this.BadRequest("Invalid data");
         }
 
         [Route(nameof(Register))]
-        [HttpPost]
-        public ActionResult Register(string request)
+        [HttpPut]
+        public ActionResult Register([FromBody] RegistrationViewModel request)
         {
-            RegistrationViewModel viewModel = JsonConvert.DeserializeObject<RegistrationViewModel>(request);
-
-            if (this.TryValidateModel(viewModel))
+            if (this.TryValidateModel(request))
             {
-                if (this.UserDatabase.TryGetValue(viewModel.Username, out User user))
+                if (this.UserDatabase.Exists(request.Username))
                 {
                     return this.BadRequest("Username already exists");
                 }
 
                 this.UserDatabase.Add(
-                    viewModel.Username,
                     new User(
-                        viewModel.Name,
-                        viewModel.Surname,
-                        viewModel.Username,
-                        viewModel.Email,
-                        viewModel.Password));
+                        request.Name,
+                        request.Surname,
+                        request.Username,
+                        request.Email,
+                        request.Password));
 
                 return this.Ok();
             }

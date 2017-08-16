@@ -1,0 +1,11 @@
+﻿<form id="chatForm" autocomplete="off">
+    <h2>Chat Messages: </h2>
+    <div class="chat-container">
+        <span class="fill" style="display:block;" *ngFor="let message of chatMessages">
+            {{ message }}
+        </span>
+    </div>
+    <md-input-container class="fill">
+        <input mdInput type="text" placeholder="Message" name="message" [(ngModel)]="message" (keyup.enter)="sendMessage()" autocomplete="off">
+    </md-input-container>
+</form>

@@ -1,7 +1,9 @@
 namespace Dashboard
 {
     using System;
+    using System.Net.WebSockets;
     using Dashboard.Library.Authentication;
+    using Dashboard.Library.Models;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
@@ -47,6 +49,8 @@ namespace Dashboard
                 options.SslPort = 44380;
                 options.Filters.Add(new RequireHttpsAttribute());
             });
+
+            services.AddSingleton<InMemoryUserDatabase>();
 
             services.AddSignalR();
         }
@@ -137,6 +141,8 @@ namespace Dashboard
             });
 
             app.UseStaticFiles();
+
+            app.UseWebSockets();
 
             app.UseSignalR();
 

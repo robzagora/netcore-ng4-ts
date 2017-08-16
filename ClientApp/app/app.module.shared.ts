@@ -32,6 +32,7 @@ import 'hammerjs';
 import { AppComponent } from './components/app/app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { LoginDialogComponent } from './components/login/login-dialog.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 import { NavService } from './services/nav.service';
 import { NewsService } from './services/news.service';
@@ -65,6 +66,7 @@ export const sharedConfig: NgModule = {
         AppComponent,
         NavComponent,
         LoginDialogComponent,
+        ChatComponent,
         routableComponents
     ],
     providers: [

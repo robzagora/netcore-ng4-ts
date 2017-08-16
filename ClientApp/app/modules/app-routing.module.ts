@@ -8,31 +8,24 @@ import { ProfileComponent } from './../components/profile/profile.component';
 import { RegistrationComponent } from './../components/registration/registration.component';
 import { NotFoundComponent } from './../components/shared/not-found.component';
 
-import { AppRoute } from './../library/routing/app.route';
-import { Home, About, Visualisation, Profile, Registration, NotFound } from './../library/routing/constants';
+import { Home, About, Visualisation, Profile, Registration, NotFound, Chat, FullPathMatching } from './../library/routing/constants';
 import { AuthGuard } from './../library/auth/auth-guard';
 import { LoggedInGuard } from './../library/auth/logged-in-guard';
 
 import { SignalrConnectionResolver } from './../library/chat/signalr-connection-resolver';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: Home, }, // path cannot start with a slash
+    { path: '', pathMatch: FullPathMatching, redirectTo: Home, }, // path cannot start with a slash
     { path: Home, component: HomeComponent },
-    { path: About, component: AboutComponent, resolve: { connection: SignalrConnectionResolver } },
+    {
+        path: About,
+        component: AboutComponent
+    },
     { path: Visualisation, component: VisualisationComponent },
-    { path: Profile, component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: Profile, component: ProfileComponent, canActivate: [AuthGuard], resolve: { connection: SignalrConnectionResolver } },
     { path: Registration, component: RegistrationComponent, canActivate: [LoggedInGuard] },
     { path: NotFound, component: NotFoundComponent },
-    { path: '**', pathMatch: 'full', redirectTo: NotFound },
-];
-
-export const AppRoutes: AppRoute[] = [
-    new AppRoute(Home, 'Home', 'home'),
-    new AppRoute(About, 'About', 'info'),
-    new AppRoute(Visualisation, 'Visualisation', 'gavel'),
-    new AppRoute(Profile, 'Profile', 'account_circle', false),
-    new AppRoute(Registration, 'Registration', 'create', false),
-    new AppRoute(NotFound, 'Not Found', 'announcement', false),
+    { path: '**', pathMatch: FullPathMatching, redirectTo: NotFound },
 ];
 
 @NgModule({

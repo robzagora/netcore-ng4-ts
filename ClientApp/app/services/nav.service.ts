@@ -4,8 +4,7 @@ import { Location } from '@angular/common';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { AppRoute } from './../library/routing/app.route';
-import { Home, Profile, Registration } from './../library/routing/constants';
-import { AppRoutes } from './../modules/app-routing.module';
+import { Home, Profile, Registration, AppRoutes } from './../library/routing/constants';
 
 @Injectable()
 export class NavService {
