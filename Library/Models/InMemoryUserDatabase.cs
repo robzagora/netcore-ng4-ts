@@ -19,6 +19,15 @@
                     "Zagora",
                     "robzagora@zagora.com",
                     "12345"));
+
+            this.UserDatabase.Add(
+                "testUser1",
+                new User(
+                    "Test",
+                    "User",
+                    "testUser1",
+                    "test@user.com",
+                    "12345"));
         }
 
         public bool Add(User user)

@@ -15,6 +15,8 @@ if (module['hot']) {
     });
 } else {
     enableProdMode();
+
+    console.log('Enabling prod mode');
 }
 
 // Note: @ng-tools/webpack looks for the following expression when performing production

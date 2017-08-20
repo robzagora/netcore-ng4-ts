@@ -1,9 +1,9 @@
 namespace Dashboard
 {
     using System;
-    using System.Net.WebSockets;
     using Dashboard.Library.Authentication;
     using Dashboard.Library.Models;
+    using Dashboard.Library.Resolvers;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
@@ -17,6 +17,7 @@ namespace Dashboard
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
 
     public class Startup
     {
@@ -36,6 +37,12 @@ namespace Dashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: this makes SignalR fail for whatever reason when trying to establish a connection (version mismatches or something like that)
+            //services.Add(new ServiceDescriptor(typeof(JsonSerializer),
+            //    provider => JsonSerializer.Create(new JsonSerializerSettings { ContractResolver = new JsonSerializationResolver() }),
+            //    ServiceLifetime.Singleton));
+
+            // https://code.msdn.microsoft.com/How-to-authorization-914d126b
             services.AddAuthorization(auth =>
             {
                 auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
@@ -43,16 +50,31 @@ namespace Dashboard
                     .RequireAuthenticatedUser().Build());
             });
 
-            // Add framework services.
-            services.AddMvc(options =>
+            services.AddSingleton<InMemoryUserDatabase>();
+            services.AddSingleton<JsonSerializerSettings>(service =>
             {
-                options.SslPort = 44380;
-                options.Filters.Add(new RequireHttpsAttribute());
+                var settings = new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                };
+
+                return settings;
             });
 
-            services.AddSingleton<InMemoryUserDatabase>();
+            services.AddSingleton(service => new JsonSerializer { ContractResolver = new JsonSerializationResolver() });
 
-            services.AddSignalR();
+            services.AddSignalR(options =>
+            {
+                options.Hubs.EnableDetailedErrors = true;
+            });
+
+            // Add framework services.
+            services
+                .AddMvc(options =>
+                {
+                    options.SslPort = 44380;
+                    options.Filters.Add(new RequireHttpsAttribute());
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +86,8 @@ namespace Dashboard
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
                     HotModuleReplacement = true
                 });
             }
@@ -105,8 +128,8 @@ namespace Dashboard
 
                         await context.Response.WriteAsync(JsonConvert.SerializeObject(new
                         {
-                            State = "NotAuth",
-                            Msg = "Token expired"
+                            State = Auth.State.Forbidden,
+                            Description = "Token expired"
                         }));
                     }
                     else if (error != null && error.Error != null)
@@ -116,8 +139,8 @@ namespace Dashboard
 
                         await context.Response.WriteAsync(JsonConvert.SerializeObject(new
                         {
-                            State = "Failed",
-                            Msg = error.Error.Message
+                            State = Auth.State.Failed,
+                            Description = error.Error.Message
                         }));
                     }
                     else

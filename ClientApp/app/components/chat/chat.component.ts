@@ -7,7 +7,7 @@ import { SignalRConnection, BroadcastEventListener } from 'ng2-signalr';
 
 import { AuthService } from './../../services/auth.service';
 import { Message } from './../../library/chat/interfaces';
-import { NewMessage } from './../../library/chat/server-interfaces';
+import { ChatMessage, ChatMessageType } from './../../library/chat/server-interfaces';
 
 @Component({
     selector: 'chat',
@@ -17,16 +17,15 @@ import { NewMessage } from './../../library/chat/server-interfaces';
 export class ChatComponent
 {
     private static Join: string = "Join";
-    private static UserJoined: string = "UserJoined";
-    private static NewMessage: string = "NewMessage";
+    private static Leave: string = "Leave";
     private static SendMessage: string = "SendMessage";
+    private static NewChatMessage: string = "NewChatMessage";
 
     private connection: SignalRConnection;
 
     private message: string = '';
 
-    private messageSubscription: Subscription;
-    private userJoinedSubscription: Subscription;
+    private newChatMessageSubscription: Subscription;
 
     private chatMessages: Message[] = [];
 
@@ -38,18 +37,34 @@ export class ChatComponent
 
         this.connection.invoke(ChatComponent.Join, this.authService.getLoggedInUser());
 
-        this.userJoinedSubscription = this.connection.listenFor<string>(ChatComponent.UserJoined).subscribe(data => {
-            this.chatMessages.push({ user: data, value: 'Joined' });
-        });
-
-        this.messageSubscription = this.connection.listenFor<NewMessage>(ChatComponent.NewMessage).subscribe(message => {
-            this.chatMessages.push({ user: message.Username, value: message.Message });
+        this.newChatMessageSubscription = this.connection.listenFor<ChatMessage>(ChatComponent.NewChatMessage).subscribe(incoming => {
+            if (incoming.type == ChatMessageType.UserJoined)
+            {
+                this.chatMessages.push({ user: incoming.username, value: 'Joined the room.' });
+            }
+            else if (incoming.type == ChatMessageType.UserLeft)
+            {
+                this.chatMessages.push({ user: incoming.username, value: 'Left the room.' });
+            }
+            else if (incoming.type == ChatMessageType.UserNewMessage)
+            {
+                this.chatMessages.push({ user: incoming.username, value: incoming.data });
+            }
         });
     }
 
     ngOnDestroy() {
-        this.messageSubscription.unsubscribe();
-        this.connection.stop();
+
+        try
+        {
+            this.connection.invoke(ChatComponent.Leave, this.authService.getLoggedInUser());
+
+            this.newChatMessageSubscription.unsubscribe();
+            this.connection.stop();
+        }
+        catch (error)
+        {
+        }
     }
 
     sendMessage() {

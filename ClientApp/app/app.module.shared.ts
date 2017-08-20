@@ -52,7 +52,7 @@ import { AppRoutingModule, routableComponents } from './modules/app-routing.modu
 
 export function createConfig(): SignalRConfiguration {
     const c = new SignalRConfiguration();
-    c.hubName = 'chat';
+    c.hubName = 'Chat';
     c.qs = { user: 'rob' };
     //c.url = 'http://ng2-signalr-backend.azurewebsites.net/';
     c.logging = true;

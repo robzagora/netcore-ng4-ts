@@ -18,12 +18,8 @@ export class ChatMessageComponent {
     }
 
     ngOnInit() {
-        console.log("Init: " + this.message);
-
     }
 
     ngOnDestroy() {
-        console.log("Destroy: " + this.message);
-
     }
 }

@@ -4,12 +4,17 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
+import { AuthState, AuthResponse, AuthData } from './../library/auth/server-interfaces';
 import { LoginUser } from './../library/auth/login-user';
 import { RegistrationModel } from './../library/auth/registration-model';
 import { HttpServiceBase } from './../library/http/http-service-base';
 
 @Injectable()
 export class AuthService extends HttpServiceBase {
+
+    private static LocalStorageUserKey: string = "user";
+    private static LocalStorageTokenKey: string = "token";
+    private static LocalStorageRequestTimeKey: string = "tokenRequestedAt";
 
     // Observable item source
     private loggedInState = new BehaviorSubject<boolean>(false);
@@ -22,8 +27,6 @@ export class AuthService extends HttpServiceBase {
     private putRequestOptions: RequestOptions;
     private postRequestOptions: RequestOptions;
 
-    private user: string = '';
-
     constructor(http: Http) {
         super(http);
 
@@ -34,14 +37,21 @@ export class AuthService extends HttpServiceBase {
         let postHeader = new Headers();
         postHeader.append('Content-Type', 'application/x-www-form-urlencoded');
         this.postRequestOptions = new RequestOptions({ headers: postHeader });
-    }
 
+        this.loggedInState.next(this.isLoggedIn());
+    }
+    
     isLoggedIn() {
-        return this.loggedInState.value;
+
+        let user = localStorage.getItem(AuthService.LocalStorageUserKey);
+
+        return user != undefined;
     }
 
     getLoggedInUser() {
-        return this.user;
+        let user = localStorage.getItem(AuthService.LocalStorageUserKey);
+
+        return user;
     }
 
     register(data: RegistrationModel): Observable<Response> {
@@ -59,6 +69,7 @@ export class AuthService extends HttpServiceBase {
 
     login(credentials: LoginUser) {
 
+        // TODO: check sessionStorage of token item
         if (!this.loggedInState.value) {
 
             this.loginOngoing.next(true);
@@ -76,9 +87,14 @@ export class AuthService extends HttpServiceBase {
 
                     this.loginOngoing.next(false);
 
-                    if (response.status == 200) {
+                    let authResponse = response.json() as AuthResponse;
+                    if (authResponse.state == AuthState.Success)
+                    {
+                        localStorage.setItem(AuthService.LocalStorageUserKey, credentials.getUsername());
+                        localStorage.setItem(AuthService.LocalStorageTokenKey, authResponse.data.accessToken);
+                        localStorage.setItem(AuthService.LocalStorageRequestTimeKey, authResponse.data.requestTimestamp.toString());
+
                         this.loggedInState.next(true);
-                        this.user = credentials.getUsername();
                     }
 
                     return response;
@@ -90,14 +106,21 @@ export class AuthService extends HttpServiceBase {
 
     logout() {
 
+        // TODO: check if sessionStorage contains token item
         if (this.loggedInState.value) {
+
+            // TODO: clear localstorage for token variable
 
             this.put('/api/auth/logout')
                 .map((response: Response) => {
 
                     if (response.status == 200) {
+
+                        localStorage.removeItem(AuthService.LocalStorageUserKey);
+                        localStorage.removeItem(AuthService.LocalStorageTokenKey);
+                        localStorage.removeItem(AuthService.LocalStorageRequestTimeKey);
+
                         this.loggedInState.next(false);
-                        this.user = '';
                     }
                 })
                 .subscribe();

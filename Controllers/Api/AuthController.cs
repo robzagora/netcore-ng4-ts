@@ -40,7 +40,21 @@ namespace Dashboard.Controllers.Api
                     return this.BadRequest("Invalid credentials");
                 }
 
-                return this.Ok();
+                var requestedTimestamp = DateTime.Now;
+                var expirationTimestamp = requestedTimestamp + Auth.DefaultExpirationSpan;
+                var token = GenerateToken(user.Username, expirationTimestamp);
+
+                return new JsonResult(new
+                {
+                    State = Auth.State.Success,
+                    Data = new
+                    {
+                        RequestTimestamp = requestedTimestamp,
+                        ExpirationTimespan = Auth.DefaultExpirationSpan.TotalSeconds,
+                        TokenType = Auth.TokenType,
+                        AccessToken = token
+                    }
+                });
             }
 
             return this.BadRequest("Invalid data");
@@ -87,8 +101,8 @@ namespace Dashboard.Controllers.Api
             if (this.TryValidateModel(viewModel))
             {
                 var requestAt = DateTime.Now;
-                var expiresIn = requestAt + Auth.ExpiresSpan;
-                var token = GenerateToken(viewModel, expiresIn);
+                var expiresIn = requestAt + Auth.DefaultExpirationSpan;
+                var token = GenerateToken(viewModel.Username, expiresIn);
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -96,7 +110,7 @@ namespace Dashboard.Controllers.Api
                     Data = new
                     {
                         requertAt = requestAt,
-                        expiresIn = Auth.ExpiresSpan.TotalSeconds,
+                        expiresIn = Auth.DefaultExpirationSpan.TotalSeconds,
                         tokeyType = Auth.TokenType,
                         accessToken = token
                     }
@@ -112,18 +126,16 @@ namespace Dashboard.Controllers.Api
             }
         }
 
-        private string GenerateToken(LoginViewModel user, DateTime expires)
+        private string GenerateToken(string username, DateTime expires)
         {
-            var handler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
             ClaimsIdentity identity = new ClaimsIdentity(
-                new GenericIdentity(user.Username, "TokenAuth"),
-                new[] {
-                    new Claim("ID", "1")
-                }
+                new GenericIdentity(username, "TokenAuth"),
+                new[] { new Claim("ID", username) }
             );
 
-            var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+            SecurityToken securityToken = handler.CreateToken(new SecurityTokenDescriptor
             {
                 Issuer = Auth.Issuer,
                 Audience = Auth.Audience,
