@@ -54,6 +54,10 @@ export class AuthService extends HttpServiceBase {
         return user;
     }
 
+    getUserToken() {
+        return localStorage.getItem(AuthService.LocalStorageTokenKey);
+    }
+
     register(data: RegistrationModel): Observable<Response> {
 
         let body = JSON.stringify({

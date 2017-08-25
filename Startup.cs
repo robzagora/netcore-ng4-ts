@@ -45,9 +45,12 @@ namespace Dashboard
             // https://code.msdn.microsoft.com/How-to-authorization-914d126b
             services.AddAuthorization(auth =>
             {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
-                    .RequireAuthenticatedUser().Build());
+                auth.AddPolicy(
+                    JwtBearerDefaults.AuthenticationScheme, 
+                    new AuthorizationPolicyBuilder()
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .Build());
             });
 
             services.AddSingleton<InMemoryUserDatabase>();
@@ -61,6 +64,7 @@ namespace Dashboard
                 return settings;
             });
 
+            // Since we're using SignalR, if you want to have camelCase properties then we need a custom contract resolver registered here
             services.AddSingleton(service => new JsonSerializer { ContractResolver = new JsonSerializationResolver() });
 
             services.AddSignalR(options =>

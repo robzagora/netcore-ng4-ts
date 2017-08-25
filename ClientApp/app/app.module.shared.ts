@@ -40,6 +40,7 @@ import { NewsService } from './services/news.service';
 import { ProgressService } from './services/progress.service'
 import { SnackbarService } from './services/snackbar.service';
 import { VisualisationService } from './services/visualisation.service';
+import { ProfileService } from './services/profile.service';
 import { AuthService } from './services/auth.service';
 
 import { AuthGuard } from './library/auth/auth-guard';
@@ -78,6 +79,7 @@ export const sharedConfig: NgModule = {
         ProgressService,
         SnackbarService,
         VisualisationService,
+        ProfileService,
         AuthService,
         AuthGuard,
         LoggedInGuard,

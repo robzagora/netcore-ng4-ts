@@ -1,9 +1,15 @@
 ﻿
 import { Component } from '@angular/core';
+import { Response } from '@angular/http';
+
+import { Observable } from 'rxjs/Observable';
 
 import { Navigatable } from './../../library/routing/navigatable';
 import { ProgressService } from './../../services/progress.service';
 import { NavService } from './../../services/nav.service';
+import { ProfileService } from './../../services/profile.service';
+
+import { Profile } from './../../library/profile/interfaces';
 
 import { easeIn } from './../../library/visualisation/animations';
 
@@ -15,11 +21,22 @@ import { easeIn } from './../../library/visualisation/animations';
 })
 export class ProfileComponent extends Navigatable {
 
-    constructor(progressService: ProgressService) {
+    private profile: Profile;
+
+    constructor(private profileService: ProfileService, progressService: ProgressService) {
         super(progressService); 
     }
 
     ngOnInit() {
+        this.profileService
+            .getProfile()
+            .catch(this.handleError.bind(this))
+            .map((response: Response) => {
+
+                console.log(response);
+            })
+            .subscribe();
+
         this.workFinished();
     }
 
@@ -27,5 +44,12 @@ export class ProfileComponent extends Navigatable {
         this.finaliseComponent();
 
         this.workOngoing();
+    }
+
+    private handleError(error: Response) {
+
+        console.log(error);
+
+        return Observable.throw(error.text);
     }
 }

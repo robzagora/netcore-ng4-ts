@@ -42,7 +42,7 @@ namespace Dashboard.Controllers.Api
 
                 var requestedTimestamp = DateTime.Now;
                 var expirationTimestamp = requestedTimestamp + Auth.DefaultExpirationSpan;
-                var token = GenerateToken(user.Username, expirationTimestamp);
+                var token = this.GenerateToken(user.Username, expirationTimestamp);
 
                 return new JsonResult(new
                 {

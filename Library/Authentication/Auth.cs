@@ -1,6 +1,7 @@
 ﻿namespace Dashboard.Library.Authentication
 {
     using System;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.IdentityModel.Tokens;
 
     public static class Auth
@@ -12,9 +13,9 @@
             Forbidden = 2
         }
 
-        public static string Audience = "ExampleAudience";
-        public static string Issuer = "ExampleIssuer";
-        public static string TokenType = "Bearer";
+        public static string Audience = "AngularAudience";
+        public static string Issuer = "AngularIssuer";
+        public static string TokenType = JwtBearerDefaults.AuthenticationScheme;
 
         public static RsaSecurityKey Key = new RsaSecurityKey(IdentityKeyGenerator.GenerateKey());
         public static SigningCredentials SigningCredentials  = new SigningCredentials(Auth.Key, SecurityAlgorithms.RsaSha256Signature);

@@ -10,8 +10,9 @@ export abstract class HttpServiceBase
         this.http = http;
     }
 
-    protected get(url: string): Observable<Response> {
-        return this.http.get(url);
+    protected get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+
+        return this.http.get(url, options);
     }
 
     protected put(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {

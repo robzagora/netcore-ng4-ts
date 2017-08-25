@@ -6,6 +6,7 @@
     <RootNamespace>Dashboard</RootNamespace>
     <AssemblyName>Dashboard</AssemblyName>
     <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
+    <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
   </PropertyGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
