@@ -6,6 +6,19 @@
                     <div class="col-md-12">
                         <h1>Profile</h1>
                     </div>
+                    <div class="col-md-12" *ngIf="dataLoaded">
+                        <ul>
+                            <li>
+                                Name: {{ profile.name }}
+                            </li>
+                            <li>
+                                Surname: {{ profile.surname }}
+                            </li>
+                            <li>
+                                Username: {{ profile.username }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <hr />
                 <div class="row">

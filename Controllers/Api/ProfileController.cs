@@ -5,7 +5,6 @@ namespace Dashboard.Controllers.Api
     using Dashboard.Library.Authentication;
     using Dashboard.Library.Models;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
 
     [ControllerRoute]
     public class ProfileController : Controller

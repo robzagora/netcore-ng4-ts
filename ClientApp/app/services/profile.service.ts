@@ -15,6 +15,20 @@ export class ProfileService extends HttpServiceBase  {
         return this.get('/api/profile/get', { headers: this.generateBearerHeaders() });
     }
 
+    // Test calls to prove bearer authorization works
+    getProfileNoHeader() {
+        return this.get('/api/profile/get');
+    }
+
+    getProfileRandomBearer() {
+
+        let headers = new Headers();
+        headers.append("Authorization", "Bearer " + this.authService.getUserToken() + "asa");
+
+        return this.get('/api/profile/get', { headers: headers });
+    }
+    //
+
     private generateBearerHeaders(): Headers {
         var headers = new Headers();
         headers.append("Authorization", "Bearer " + this.authService.getUserToken());

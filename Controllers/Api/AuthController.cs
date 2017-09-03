@@ -1,7 +1,6 @@
 namespace Dashboard.Controllers.Api
 {
     using System;
-    using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Security.Principal;
@@ -42,7 +41,7 @@ namespace Dashboard.Controllers.Api
 
                 var requestedTimestamp = DateTime.Now;
                 var expirationTimestamp = requestedTimestamp + Auth.DefaultExpirationSpan;
-                var token = this.GenerateToken(user.Username, expirationTimestamp);
+                var token = this.GenerateToken(user, expirationTimestamp);
 
                 return new JsonResult(new
                 {
@@ -100,13 +99,15 @@ namespace Dashboard.Controllers.Api
 
             if (this.TryValidateModel(viewModel))
             {
+                User user = this.UserDatabase.Get(viewModel.Username);
+
                 var requestAt = DateTime.Now;
                 var expiresIn = requestAt + Auth.DefaultExpirationSpan;
-                var token = GenerateToken(viewModel.Username, expiresIn);
+                var token = GenerateToken(user, expiresIn);
 
                 return JsonConvert.SerializeObject(new
                 {
-                    State = "Success",
+                    State = Auth.State.Success,
                     Data = new
                     {
                         requertAt = requestAt,
@@ -120,19 +121,19 @@ namespace Dashboard.Controllers.Api
             {
                 return JsonConvert.SerializeObject(new
                 {
-                    State = "Failed",
+                    State = Auth.State.Failed,
                     Msg = "Username or password is invalid"
                 });
             }
         }
 
-        private string GenerateToken(string username, DateTime expires)
+        private string GenerateToken(User user, DateTime expires)
         {
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
 
             ClaimsIdentity identity = new ClaimsIdentity(
-                new GenericIdentity(username, "TokenAuth"),
-                new[] { new Claim("ID", username) }
+                new GenericIdentity(user.Username, "Auth"),
+                new[] { new Claim("Id", user.Id.ToString()) }
             );
 
             SecurityToken securityToken = handler.CreateToken(new SecurityTokenDescriptor

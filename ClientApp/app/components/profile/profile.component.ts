@@ -9,6 +9,7 @@ import { ProgressService } from './../../services/progress.service';
 import { NavService } from './../../services/nav.service';
 import { ProfileService } from './../../services/profile.service';
 
+import { AuthResponse, AuthState, AuthData } from './../../library/auth/server-interfaces';
 import { Profile } from './../../library/profile/interfaces';
 
 import { easeIn } from './../../library/visualisation/animations';
@@ -21,6 +22,7 @@ import { easeIn } from './../../library/visualisation/animations';
 })
 export class ProfileComponent extends Navigatable {
 
+    private dataLoaded: boolean = false;
     private profile: Profile;
 
     constructor(private profileService: ProfileService, progressService: ProgressService) {
@@ -28,16 +30,21 @@ export class ProfileComponent extends Navigatable {
     }
 
     ngOnInit() {
+
         this.profileService
             .getProfile()
             .catch(this.handleError.bind(this))
             .map((response: Response) => {
 
-                console.log(response);
+                let authResponse = response.json() as any;
+
+                this.profile = authResponse.data as Profile;
+
+                this.dataLoaded = true;
+
+                this.workFinished();
             })
             .subscribe();
-
-        this.workFinished();
     }
 
     ngOnDestroy() {

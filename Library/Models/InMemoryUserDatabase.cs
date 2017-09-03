@@ -15,8 +15,8 @@
                 "robzagora",
                 new User(
                     "Rob",
-                    "robzagora",
                     "Zagora",
+                    "robzagora",
                     "robzagora@zagora.com",
                     "12345"));
 
