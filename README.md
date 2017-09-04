@@ -7,8 +7,8 @@ This repository was generated via the angular 2 template provided out of the box
 
 Some potentially useful [notes](https://github.com/robzagora/netcore-ng4-ts/blob/master/Solution%20Items/steps%20for%20vs%202017%20and%20angular%202.txt) have been added to the Solution Items directory after spending hours on issues in relation to working with ng2.
 
-* Angular 2/4 framework
+* [Angular 2/4](https://github.com/angular/angular) framework
 * .NET Core 1.1 with SignalR using WebSockets
 * [Material Design 2](https://github.com/angular/material2)
 * Bearer authorization using JWT tokens 
-* D3.js to experiment with graphs.
+* [D3.js](https://github.com/d3/d3) to experiment with graphs.
