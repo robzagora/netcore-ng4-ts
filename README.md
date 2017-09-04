@@ -7,5 +7,5 @@ Some potentially useful [notes](https://github.com/robzagora/netcore-ng4-ts/blob
 
 * Angular 2/4 framework
 * .NET Core 1.1 with SignalR using WebSockets
-* [Material Design](https://github.com/angular/material2)
+* [Material Design 2](https://github.com/angular/material2)
 * Bearer authorization using JWT tokens 
