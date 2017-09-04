@@ -11,3 +11,4 @@ Some potentially useful [notes](https://github.com/robzagora/netcore-ng4-ts/blob
 * .NET Core 1.1 with SignalR using WebSockets
 * [Material Design 2](https://github.com/angular/material2)
 * Bearer authorization using JWT tokens 
+* D3.js to experiment with graphs.
