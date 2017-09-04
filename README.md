@@ -5,7 +5,7 @@ The original attempt can be seen in the [dotnetcore-ng2-ts](https://github.com/r
 
 Some potentially useful [notes](https://github.com/robzagora/netcore-ng4-ts/blob/master/Solution%20Items/steps%20for%20vs%202017%20and%20angular%202.txt) have been added to the Solution Items directory.
 
-* Angular 2
+* Angular 2/4 framework
 * .NET Core 1.1 with SignalR using WebSockets
 * [Material Design](https://github.com/angular/material2)
 * Bearer authorization using JWT tokens 
