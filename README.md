@@ -1,1 +1,1 @@
-# netcore-ng4-ts
+# SPA Web App using .NET Core, TypeScript and Angular 2/4
